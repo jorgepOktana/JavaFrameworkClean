@@ -9,7 +9,7 @@ import pageObjects.SalesforceSetupPage;
 public class ProcessBuilderTest {
     String username= System.getProperty("username", "local").trim();
     String password= System.getProperty("password", "local").trim();
-
+    String sandBoxURL= System.getProperty("sandboxURL", "local").trim();
 
     @Test
     public void navigateToProcessBuilder()  {
@@ -21,7 +21,7 @@ public class ProcessBuilderTest {
         WebDriver driver = new ChromeDriver();
 
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.navigateToPage("https://maxitesting-dev-ed.lightning.force.com/lightning/setup/SetupOneHome/home");
+        loginPage.navigateToPage(sandBoxURL);
 
         loginPage.getUsernameInput().sendKeys(username);
         loginPage.getPasswordInput().sendKeys(password);
