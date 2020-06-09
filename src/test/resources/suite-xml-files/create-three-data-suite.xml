@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ICIX Test Suite">
+    <listeners>
+        <listener class-name="icix.Utils.ReportListener"/>
+    </listeners>
+    <test name="ThreeActorConfig-Tests">
+        <groups>
+            <run>
+                <exclude name="broken"/>
+            </run>
+        </groups>
+        <classes>
+            <!--Create Test Program -->
+            <class name="icix.Tests.three_awf.QA_39_Test"/>
+
+            <!--Create Product and corrective action form-->
+            <class name="icix.Tests.three_awf.QA_371_Test"/>
+
+            <!--Configure Product test and corrective action form -->
+            <class name="icix.Tests.three_awf.QA_58_Test"/>
+
+            <!--Create ICIX Product-->
+            <class name="icix.Tests.three_awf.QA_165_Test"/>
+
+            <class name="icix.Tests.three_awf.QA_7540_Test"/>
+
+            <!--&lt;!&ndash;Configure Product with TestProgram&ndash;&gt;-->
+            <!--<class name="icix.Tests.three_awf.ConfigureProductAndTestManager_Test"/>-->
+        </classes>
+    </test> <!-- Account-Tests -->
+</suite> <!-- ICIX Test Suite -->

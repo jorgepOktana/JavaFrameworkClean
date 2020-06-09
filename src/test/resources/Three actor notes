@@ -1,0 +1,16 @@
+--Configure 3 actor test data before send request--
+-----------------------------------------------------
+OLD STEPS
+1. Create Test Program > QA_39_Test
+2. Create Product and corrective action form> QA_371_Test
+3. Configure Product test and corrective action form > QA_58
+4. Create ICIX Product > QA_165_Test
+5. Configure Product with TestProgram> ConfigureProductAndTestManager_Test
+*************** NOW YOU CAN CREATE REQUEST ***********************************
+
+NEW STEP
+NOTE: Execute ThreeActorConfigurations.java class to create data for 3 AWF
+******************************************************************************
+
+****SEPRATE TEST SUITE IS CREATED FOR THIS UNDER SUITE-XML-FILES DIRECTORY**********
+create-three-data-suite.xml

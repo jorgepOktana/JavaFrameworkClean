@@ -4,10 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import static pageConstants.BasePageConstants.*;
-
-
 public class LoginPage extends BasePage{
+
+	public static final String PAGE_LOOK_UP_SEARCH_FRAME = "//frame[contains(@name,'searchFrame')]";
 
 	public LoginPage(WebDriver driver) {
 		super(driver);

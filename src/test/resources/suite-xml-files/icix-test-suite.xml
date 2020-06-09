@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ICIX Test Suite">
+  <listeners>
+    <listener class-name="icix.Utils.ReportListener"/>
+  </listeners>
+  <test thread-count="3" name="Three_AWF-Tests" parallel="classes">
+    <groups>
+      <run>
+        <exclude name="broken"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="icix.Tests.three_awf.QA_7498_Test"/>
+      <class name="icix.Tests.three_awf.QA_7540_Test"/>
+      <class name="icix.Tests.three_awf.QA_7501_Test"/>
+    </classes>
+  </test> <!-- Three_AWF-Tests -->
+</suite> <!-- ICIX Test Suite -->

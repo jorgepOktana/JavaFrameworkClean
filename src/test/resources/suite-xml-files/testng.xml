@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ICIX Package Regression">
+    <test name="ICIX Test">
+        <classes>
+            <!--This is single run test suite-->
+            <class name="icix.DynamicSuiteRunner.SuiteRunner"/>
+            <!--This is multiple parallel suite-->
+            <!--<class name="icix.DynamicSuiteRunner.MultipleSuiteRunner"/>-->
+        </classes>
+    </test>
+
+</suite> <!-- Suite -->

@@ -6,10 +6,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static pageConstants.BasePageConstants.*;
-
-
 public class BasePage {
+
+	public static final String PAGE_LOOK_UP_SEARCH_FRAME = "//frame[contains(@name,'searchFrame')]";
+	public static final String USERNAME_INPUT = "#username";
+	public static final String PASSWORD_INPUT = "#password";
+	public static final String LOGIN_BUTTON = "#Login";
 
 	protected WebDriver driver;
 

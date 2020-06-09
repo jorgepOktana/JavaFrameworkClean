@@ -5,10 +5,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import static pageConstants.ProcessBuilderPageConstants.*;
-
-
 public class ProcessBuilderPage extends BasePage{
+
+	public static final String NEW_BUTTON_XPATH = "//button/span[text()='New']";
+	public static final String NEW_BUTTON_CSS = ".label.bBody";
+	public static final String WAFFLE_ICON = "//div[@class='slds-icon-waffle']";
+	public static final String IFRAME = "//iframe";
+	public static final String PROCESS_NAME_INPUT = "//span[text()='Process Name']/following-sibling::div/input";
+	public static final String PROCESS_STARTS_WHEN_SELECT = "//select";
+	public static final String PROCESS_SAVE_BUTTON = "//button/span[text()='Save']";
+	public static final String ADD_OBJECT_BUTTON = "//span[text()='Add Object']";
 
 	public ProcessBuilderPage(WebDriver driver) {
 		super(driver);

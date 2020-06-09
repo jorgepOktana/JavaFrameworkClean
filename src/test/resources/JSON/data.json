@@ -1,0 +1,30 @@
+{
+  "three_actor_tests": [
+    {"id": "QA",
+      "childProduct": "QA",
+      "parentProduct": "QA",
+      "isChildConfigWithPTM": "false",
+      "isParentConfigWithPTM": "true",
+      "isChildAssociatedWithParent": "true",
+      "request": "This is "
+    },
+    {"id": "QA_2",
+      "childProduct": "QA",
+      "parentProduct": "QA",
+      "isChildConfigWithPTM": "false",
+      "isParentConfigWithPTM": "true",
+      "isChildAssociatedWithParent": "true",
+      "request": "This is 2 "
+    }
+  ,
+    {"id": "QA_3",
+      "childProduct": "QA",
+      "parentProduct": "QA",
+      "isChildConfigWithPTM": "false",
+      "isParentConfigWithPTM": "true",
+      "isChildAssociatedWithParent": "true",
+      "request": "This is "
+    }
+  ]
+
+}
