@@ -1,7 +1,5 @@
-# Salesforce-Automation-Tips
+# Java Clean Framework for ICIX V1
 
-In order to run this project you need to set the following VM options in the IDE:
--Dusername={YOUR SANDBOX USERNAME} ie.: m.lopez@salesforce.com.maxidemo1
--Dpassword={YOUR SANDBOX PASSWORD} ie.: Password123
--DsandboxURL={YOUR SANDBOX URL} ie.: https://maxitesting-dev-ed.lightning.force.com/
--Dwebdriver.chrome.driver= {YOUR CHROMEDRIVER PATH} ie.: /Users/m.lopez/Documents/chromedriver
+This will be Page-Object Model based. 
+Will try to integrate TestNG, DataProvider and Cucumber 
+(or any libraries that will allow reading excel files and passing as DataTables)

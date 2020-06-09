@@ -1,0 +1,12 @@
+#Ignore OS junk files
+*.DS_Store
+
+#Ignore maven wrapper files
+.mvn/wrapper/*
+.mvn/*
+*.mvn
+mvnw.cmd
+mvnw.*
+
+
+
