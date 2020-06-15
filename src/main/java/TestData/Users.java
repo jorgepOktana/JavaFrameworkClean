@@ -1,11 +1,16 @@
 package TestData;
 
-import Utils.ExcelUtil;
+import org.openqa.selenium.WebDriver;
+import pageObjects.BasePage;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Users {
+public class Users extends BasePage {
+
+    public Users(WebDriver driver) {
+        super(driver);
+    }
 
     //All user almost similar as defined in excel
     public enum TYPE {
@@ -26,7 +31,7 @@ public class Users {
     static {
         try {
             //Get data from excel
-            ExcelUtil.GetUserData();
+            GetUserData();
             //Set data for each user
             Requester_Admin = adminUsersTestDataMap.get("Requester");
             Responder_Admin = adminUsersTestDataMap.get("Responder");
