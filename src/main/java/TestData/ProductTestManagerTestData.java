@@ -266,7 +266,7 @@ public class ProductTestManagerTestData extends BasePage {
         ProductTestManagerTestData productTestManagerTestData = new ProductTestManagerTestData(driver);
         try {
             String FS = File.separator;
-            String testDataFilePath = "src" + FS + "test" + FS + "resources" + FS + "src_test_resources/TestData" + FS + "TestProgram_TestData.xlsx";
+            String testDataFilePath = "src" + FS + "test" + FS + "resources" + FS + "TestData" + FS + "TestProgram_TestData.xlsx";
             File f = new File(testDataFilePath);
             Connection connection = fillo.getConnection(f.getAbsolutePath());
 
