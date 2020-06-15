@@ -2,6 +2,8 @@
 *.DS_Store
 
 #Ignore maven wrapper files
+target
+.idea
 .mvn/wrapper/*
 .mvn/*
 *.mvn

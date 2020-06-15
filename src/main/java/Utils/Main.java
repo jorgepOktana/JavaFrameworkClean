@@ -1,17 +1,8 @@
 package Utils;
 
 
-import icix.Modules.IcixTasks;
-
 public class Main {
     public static void main(String[] args) throws Exception {
-        IcixTasks.addProcessedRelatedRequestsInMap("Hello");
-        IcixTasks.addProcessedRelatedRequestsInMap("Test");
-        System.out.println(IcixTasks.getProcessedRelatedRequestsFromMap().toString());
-        IcixTasks.addProcessedRelatedRequestsInMap("Test3");
-        System.out.println(IcixTasks.getProcessedRelatedRequestsFromMap().toString());
-
-
     }
 
     public static String convertMillisToTime(long Millis) {
