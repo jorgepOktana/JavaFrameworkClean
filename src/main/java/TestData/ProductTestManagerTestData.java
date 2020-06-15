@@ -4,16 +4,16 @@ import com.codoid.products.exception.FilloException;
 import com.codoid.products.fillo.Connection;
 import com.codoid.products.fillo.Fillo;
 import com.codoid.products.fillo.Recordset;
-import Utils.Log;
-import org.openqa.selenium.WebDriver;
-import pageObjects.BasePage;
+import icix.Utils.Common;
+import icix.Utils.ExcelUtil;
+import icix.Utils.Log;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ProductTestManagerTestData extends BasePage {
+public class ProductTestManagerTestData {
     List<Category> categoryLits = new ArrayList<>();
     List<LimitValues> limitValuesList = new ArrayList<>();
     List<TestSubstance> testSubstanceList = new ArrayList<>();
@@ -35,10 +35,6 @@ public class ProductTestManagerTestData extends BasePage {
     private String Measure = "";
     private String Message = "";
     private String CreateCustomCertificate;
-
-    public ProductTestManagerTestData(WebDriver driver) {
-        super(driver);
-    }
 
     @Override
     public String toString() {
@@ -236,7 +232,7 @@ public class ProductTestManagerTestData extends BasePage {
     }
 
     public void GetData(String testId) throws Exception {
-        Recordset rs = GetTestData("ProductTestManager", testId);
+        Recordset rs = ExcelUtil.GetTestData("ProductTestManager", testId);
         Date d = new Date(System.currentTimeMillis());
         while (rs.next()) {
             this.setProductTestManagerName(rs.getField("ProductTestManagerName") + " " + d);
@@ -263,7 +259,7 @@ public class ProductTestManagerTestData extends BasePage {
 
     public ProductTestManagerTestData GetData_Dynamic(String testId) throws Exception {
         Fillo fillo = new Fillo();
-        ProductTestManagerTestData productTestManagerTestData = new ProductTestManagerTestData(driver);
+        ProductTestManagerTestData productTestManagerTestData = new ProductTestManagerTestData();
         try {
             String FS = File.separator;
             String testDataFilePath = "src" + FS + "test" + FS + "resources" + FS + "TestData" + FS + "TestProgram_TestData.xlsx";
@@ -281,7 +277,7 @@ public class ProductTestManagerTestData extends BasePage {
 
             //***********************Get TestProgram Data******************************************************************
             while (recordset.next()) {
-                productTestManagerTestData.setProductTestManagerName(recordset.getField("ProductTestManagerName") + " " + GetTimeStamp());
+                productTestManagerTestData.setProductTestManagerName(recordset.getField("ProductTestManagerName") + " " + Common.GetTimeStamp());
                 productTestManagerTestData.setCerfificateName(recordset.getField("CerfificateName"));
                 productTestManagerTestData.setAllowBulkAction(recordset.getField("AllowBulkAction"));
                 productTestManagerTestData.setValidationPeriod(recordset.getField("ValidationPeriod"));
@@ -307,9 +303,9 @@ public class ProductTestManagerTestData extends BasePage {
                 while (recordset.next()) {
                     CustomCerificate customCerificate = new CustomCerificate();
                     customCerificate.setTestId(testId);
-                    customCerificate.setCertificateName(recordset.getField("CertificateName")+ " "+GetTimeStamp());
+                    customCerificate.setCertificateName(recordset.getField("CertificateName")+ " "+Common.GetTimeStamp());
                     customCerificate.setTemplatePage(recordset.getField("TemplatePage"));
-                    customCerificate.setCertificateTitle(recordset.getField("CertificateTitle")+ " "+GetTimeStamp());
+                    customCerificate.setCertificateTitle(recordset.getField("CertificateTitle")+ " "+Common.GetTimeStamp());
                     customCerificate.setContactName(recordset.getField("ContactName"));
                     customCerificate.setContactPhone(recordset.getField("ContactPhone"));
                     customCerificate.setContactEmail(recordset.getField("ContactEmail"));

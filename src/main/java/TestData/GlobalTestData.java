@@ -1,5 +1,7 @@
 package TestData;
 
+import icix.Utils.ReportUtil;
+
 import java.util.*;
 
 public class GlobalTestData {
@@ -59,7 +61,7 @@ public class GlobalTestData {
 
     public static Set<String> getCoverageIds(String key) {
         if (testCoverageMap.containsKey(key)){
-//            testCoverageMap.get(key).removeAll(ReportUtil.started_tests);
+            testCoverageMap.get(key).removeAll(ReportUtil.started_tests);
             return testCoverageMap.get(key);
         }
         return Collections.EMPTY_SET;

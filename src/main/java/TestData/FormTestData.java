@@ -5,25 +5,19 @@ import com.codoid.products.fillo.Connection;
 import com.codoid.products.fillo.Fillo;
 import com.codoid.products.fillo.Recordset;
 import Utils.Log;
-import org.openqa.selenium.WebDriver;
-import pageObjects.BasePage;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class FormTestData extends BasePage {
+import static Utils.Common.GetTimeStamp;
+
+public class FormTestData {
     String TestId;
     String ContainerTemplateName, Type;
     List<Tab> Tabs = new ArrayList<>();
     List<Section> Sections = new ArrayList<>();
     List<LinkedQuestion> LinkedQuestions = new ArrayList<>();
-
-    public FormTestData(WebDriver driver) {
-        super(driver);
-    }
 
 
     public String getTestId() {
@@ -96,7 +90,7 @@ public class FormTestData extends BasePage {
     private synchronized FormTestData GetFormTestData(String testId) throws Exception {
         Fillo fillo = new Fillo();
         try {
-            FormTestData formTestData = new FormTestData(driver);
+            FormTestData formTestData = new FormTestData();
             String FS = File.separator;
             String testDataFilePath = "src" + FS + "test" + FS + "resources" + FS + "TestData" + FS + "FormBuilder_TestData.xlsx";
             File f = new File(testDataFilePath);

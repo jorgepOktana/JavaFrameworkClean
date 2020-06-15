@@ -2,7 +2,6 @@
 *.DS_Store
 
 #Ignore maven wrapper files
-target
 .mvn/wrapper/*
 .mvn/*
 *.mvn
