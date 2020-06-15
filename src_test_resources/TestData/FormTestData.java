@@ -98,7 +98,7 @@ public class FormTestData extends BasePage {
         try {
             FormTestData formTestData = new FormTestData(driver);
             String FS = File.separator;
-            String testDataFilePath = "src" + FS + "test" + FS + "resources" + FS + "TestData" + FS + "FormBuilder_TestData.xlsx";
+            String testDataFilePath = "src" + FS + "test" + FS + "resources" + FS + "src_test_resources/TestData" + FS + "FormBuilder_TestData.xlsx";
             File f = new File(testDataFilePath);
             Connection connection = fillo.getConnection(f.getAbsolutePath());
 
