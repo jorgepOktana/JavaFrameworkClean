@@ -1,15 +1,14 @@
 package TestData;
 
 import com.codoid.products.fillo.Recordset;
-import Utils.ExcelUtil;
+import org.openqa.selenium.WebDriver;
+import pageObjects.BasePage;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import static Utils.Common.GetTimeStamp;
-
-public class RequestTestData {
+public class RequestTestData extends BasePage {
 
 
     public static String ProductName = "TestProduct_18Aug2017";
@@ -20,6 +19,10 @@ public class RequestTestData {
 
     //Get Testdata from excel file
     private String RequestName, RequestType, TpOrPrdctName, DocCategory, DocName, Comment, ApproveOrRejectComments, WorkflowStatus;
+
+    public RequestTestData(WebDriver driver) {
+        super(driver);
+    }
 
     public String getRequestName() {
         return RequestName;
@@ -100,7 +103,7 @@ public class RequestTestData {
     }
 
     public void GetData(String testId) throws Exception {
-        Recordset rs = ExcelUtil.GetTestData("Request", testId);
+        Recordset rs = GetTestData("Request", testId);
         Date d = new Date(System.currentTimeMillis());
         while (rs.next()) {
             //Request name
