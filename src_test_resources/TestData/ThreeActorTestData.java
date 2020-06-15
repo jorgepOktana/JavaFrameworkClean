@@ -1,8 +1,10 @@
 package TestData;
 
 import com.codoid.products.fillo.Recordset;
-import Utils.ExcelUtil;
 import Utils.Log;
+import com.sun.xml.internal.rngom.parse.host.Base;
+import org.openqa.selenium.WebDriver;
+import pageObjects.BasePage;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,11 +14,15 @@ import java.util.Map;
 import java.util.Properties;
 
 
-public class ThreeActorTestData {
+public class ThreeActorTestData extends BasePage {
     public static Map<LabKey, String> labResultsMap = new HashMap<>();
     private String Lab, QuantitativeValue, QualitativeValue, Zip, State, City, Address, Country, Attention, CompanyName, TestResultValue, DefectiveSize;
 
     public static Map<String,String> requestGroupId = new HashMap<>();
+
+    public ThreeActorTestData(WebDriver driver) {
+        super(driver);
+    }
 
     public String getDefectiveSize() {
         return DefectiveSize;
@@ -186,7 +192,7 @@ public class ThreeActorTestData {
     }
 
     public ThreeActorTestData GetData(String testId) throws Exception {
-        Recordset rs = ExcelUtil.GetTestData("ThreeActor", testId);
+        Recordset rs = GetTestData("ThreeActor", testId);
         while (rs.next()) {
             //Lab_Admin name
             this.setLab(rs.getField("Lab name"));
