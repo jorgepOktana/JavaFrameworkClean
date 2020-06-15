@@ -1,39 +1,80 @@
 package pageObjects;
 
-import TestData.GlobalTestData;
+import Utils.TestStepFailException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import Utils.Log;
-import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
 
+import static java.lang.Thread.sleep;
 
 public class LoginPage extends BasePage{
 
-	@FindBy(id = "username")
-	public WebElement txtUsername;
+	//these are the old (used) selectors
+//	public static By txtUsername = By.id("username");
+//	public static By txtPassword = By.id("password");
+//	public static By btnLogin = By.id("Login");
+//	public static By drpSwitchToLighteningById = By.id("userNavLabel");
+//	public static By drpSwitchToLighteningByXPath = By.xpath("//span[@id='userNavLabel']");
+//	public static By OptionSwitchToLightening = By.xpath("//*[@id='userNav-menuItems']/a");
+//	public static By appLauncherIcon = By.xpath("//div[@class='slds-icon-waffle']");
+//	public static By pageHeaderForLighteningView = By.xpath(".//*[@id='oneHeader']");
+//	public static By imgWaffle = By.cssSelector("nav.appLauncher button span");
+//	public static By imgProfile = By.cssSelector(".uiImage");
+//	public static By imgProfileTrigger = By.xpath("//img[contains(@class,'profileTrigger')]");
+//	public static By lnkLogout = By.linkText("Log Out");
 
-	@FindBy(id = "password")
-	public WebElement txtPassword;
+	//define new selectors like this:
+	public static final String USERNAME_INPUT = "#username";
+	public static final String PASSWORD_INPUT = "#password";
+	public static final String LOGIN_BUTTON = "#Login";
+	public static final	String NEW_PASSWORD = "#newpassword";
+	public static final	String HEADER = "#header";
 
-	@FindBy(id = "Login")
-	public WebElement btnLogin;
+	public WebElement getUsernameInput() {
+		By locator = By.cssSelector(USERNAME_INPUT);
+		waitForElementToLoad(locator);
+		WebElement element = driver.findElement(locator);
 
-	@FindBy(id = "newpassword")
-	public WebElement newPassword;
+    	return element;
+	}
 
-	@FindBy(id = "header")
-	public WebElement header;
+	public WebElement getPasswordInput() {
+		By locator = By.cssSelector(PASSWORD_INPUT);
+		waitForElementToLoad(locator);
+		WebElement element = driver.findElement(locator);
+
+		return element;
+	}
+
+	public WebElement getLoginButton() {
+		By locator = By.cssSelector(LOGIN_BUTTON);
+		waitForElementToLoad(locator);
+		WebElement element =  driver.findElement(locator);
+
+		return element;
+	}
+
+
+	public WebElement getNewPassword() {
+		By locator = By.cssSelector(NEW_PASSWORD);
+		waitForElementToLoad(locator);
+		WebElement element = driver.findElement(locator);
+
+		return element;
+	}
+
+	public WebElement getHeader() {
+		By locator = By.cssSelector(HEADER);
+		waitForElementToLoad(locator);
+		WebElement element =  driver.findElement(locator);
+
+		return element;
+	}
 
 	public LoginPage(WebDriver driver) {
 		super(driver);
 	}
-
-	public boolean isCurrentPage(){
-		return txtUsername.isDisplayed();
-	}
-
-	public boolean isLogin = false;
 
 	/**
 	 * <h1>Login User <h1/>
@@ -42,93 +83,34 @@ public class LoginPage extends BasePage{
 	 * @param UserName,Password
 	 * @throws Exception
 	 */
+
 	public void LoginUser(String UserName, String Password) throws Exception {
-		enterInTextBox(txtUsername, UserName);
-		enterInTextBox(txtPassword, Password);
-		btnLogin.click();
+		Log.info("Start Log in to application");
+		Log.info("Enter user name");
+		getUsernameInput().sendKeys(UserName);
+//		FindAnElement(txtUsername).sendKeys(UserName);
+		Log.info("Enter password");
+		getPasswordInput().sendKeys(Password);
+//		FindAnElement(txtPassword).sendKeys(Password);
+		getLoginButton().click();
+//		ClickElement(By.id("Login"), "Login button");
+//		sleep(5000);
 		waitForPageLoadToComplete();
-		boolean isLogin = !txtUsername.isDisplayed();
+		boolean isLogin = !getUsernameInput().isDisplayed();
+//		boolean isLogin = $(txtUsername).is(hidden);
+
 		//Verify if Change password screen appear
 		if (isLogin) {
-			if (newPassword.isDisplayed()) {
-				Log.error("Salesforce message: " + header.getText());
-				Log.info("Login Failed> SALESFORCE CHANGE PASSWORD WINDOW APPEARED");
+			if (getNewPassword().isDisplayed()) {
+				Log.error("Salesforce message: " + getHeader().getText());
+				throw new TestStepFailException("Login Failed> SALESFORCE CHANGE PASSWORD WINDOW APPEARED");
 			}
 		}
+
 		if (!isLogin) {
-			Log.info("Login Failed");
+			throw new TestStepFailException("Login Failed");
 		}
 		waitForPageLoadToComplete();
-	}
-
-	public void loginAs(String actor) throws Exception {
-		driver.switchTo().defaultContent();
-
-		if (this.isLogin()) {
-			if(!this.getCurrentLoginUser().equals(actor))
-			{
-				logout();
-			}else {
-				Log.info( actor +" is already logged in");
-				return;
-			}
-		}
-		switch (actor) {
-			case "Requestor_Admin":
-				LoginUser(GlobalTestData.Requester_Admin.getUserId(), GlobalTestData.Requester_Admin.getPassword());
-				this.isLogin = true;
-				setCurrentLoginUser(actor);
-				SwitchToLightiningView();
-				Log.info("Requestor_Admin logged in successfully.");
-				GlobalTestData.RequesterUrl = driver.getCurrentUrl();
-				break;
-
-			case "Responder_Admin":
-				LoginUser(GlobalTestData.Responder_Admin.getUserId(), GlobalTestData.Responder_Admin.getPassword());
-				this.isLogin = true;
-				setCurrentLoginUser(actor);
-				SwitchToLightiningView();
-				Log.info("Responder_Admin logged in successfully.");
-				GlobalTestData.ResponderUrl = driver.getCurrentUrl();
-				break;
-
-			case "Laboratory_Admin":
-				LoginUser(GlobalTestData.Lab_Admin.getUserId(), GlobalTestData.Lab_Admin.getPassword());
-				this.isLogin = true;
-				setCurrentLoginUser(actor);
-				SwitchToLightiningView();
-				Log.info("Laboratory_Admin logged in successfully.");
-				GlobalTestData.LabUrl = driver.getCurrentUrl();
-				break;
-			case "Requestor_SPU":
-				LoginUser(GlobalTestData.Requester_SPU.getUserId(), GlobalTestData.Requester_SPU.getPassword());
-				this.isLogin = true;
-				setCurrentLoginUser(actor);
-				SwitchToLightiningView();
-				Log.info("Requestor_SPU logged in successfully.");
-				GlobalTestData.RequesterUrl = driver.getCurrentUrl();
-				break;
-
-			case "Responder_SPU":
-				LoginUser(GlobalTestData.Responder_SPU.getUserId(), GlobalTestData.Responder_SPU.getPassword());
-				this.isLogin = true;
-				setCurrentLoginUser(actor);
-				SwitchToLightiningView();
-				Log.info("Responder_SPU logged in successfully.");
-				GlobalTestData.ResponderUrl = driver.getCurrentUrl();
-				break;
-
-			case "Laboratory_SPU":
-				LoginUser(GlobalTestData.Lab_SPU.getUserId(), GlobalTestData.Lab_SPU.getPassword());
-				this.isLogin = true;
-				setCurrentLoginUser(actor);
-				SwitchToLightiningView();
-				Log.info("Laboratory_SPU logged in successfully.");
-				GlobalTestData.LabUrl = driver.getCurrentUrl();
-				break;
-			default:
-				Assert.assertTrue(false, "Not a valid user type.");
-		}
 	}
 
 }
