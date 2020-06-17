@@ -1,7 +1,6 @@
 package pageObjects;
 
 import TestData.RequestTestData;
-import jdk.nashorn.internal.objects.annotations.Function;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -93,7 +92,7 @@ public class NewRequestPage extends BasePage {
     public void enterRequestName(RequestTestData requestTestData) {
         String requestName = requestTestData.getRequestName();
         waitUntilDisplayed(txtRequestName);
-        enterInTextBox(txtRequestName, requestName);
+        enterText(txtRequestName, requestName);
     }
 
     public void appendToRequest(String append){
@@ -103,14 +102,14 @@ public class NewRequestPage extends BasePage {
     public void setRequestType(RequestTestData requestTestData){
         if(requestTestData.getRequestType().equalsIgnoreCase("Trading Partner")){
             waitUntilDisplayed(requestType.get(0));
-            requestType.get(0).click();
+            clickElement(requestType.get(0), false, false);
             waitUntilDisplayed(tPartnerPicklist);
-            enterInTextBox(tPartnerPicklist,requestTestData.getTpOrPrdctName());
+            enterText(tPartnerPicklist,requestTestData.getTpOrPrdctName());
         } else { //request Type = Product
             waitUntilDisplayed(requestType.get(1));
-            requestType.get(1).click();
+            clickElement(requestType.get(1), false, false);
             waitUntilDisplayed(productPicklist);
-            enterInTextBox(productPicklist, requestTestData.getTpOrPrdctName());
+            enterText(productPicklist, requestTestData.getTpOrPrdctName());
         }
         waitUntilDisplayed(picklistResults.get(0));
         clickFirstMatchingText(picklistResults, requestTestData.getTpOrPrdctName());
@@ -118,35 +117,36 @@ public class NewRequestPage extends BasePage {
 
     public void clickSelectDocumentBtn(){
         waitUntilDisplayed(selectDocumentsBtn);
-        selectDocumentsBtn.click();
+        clickButton(selectDocumentsBtn);
     }
 
     public void setDueDate() {
         waitUntilDisplayed(dueDate);
-        dueDate.click();
+        clickElement(dueDate, false, false);
         waitUntilDisplayed(nextMonth);
-        nextMonth.click();
+        clickElement(nextMonth, false, false);
         int size = dateDays.size();
+//        int index = dateDays.lastIndexOf(dateDays);
         dateDays.get(size-1);
     }
 
     public void setRequestComments(RequestTestData requestTestData){
         waitUntilDisplayed(requestComments);
-        enterInTextBox(requestComments, requestTestData.getComment());
+        enterText(requestComments, requestTestData.getComment());
     }
 
     public void clickSendBtn(){
         waitUntilDisplayed(sendRequestBtn);
-        sendRequestBtn.click();
+        clickButton(sendRequestBtn);
     }
 
     public void clickSaveAsDraft() {
         waitUntilDisplayed(saveAsDraftBtn);
-        saveAsDraftBtn.click();
+        clickButton(saveAsDraftBtn);
     }
 
     public void clickCancelRequestBtn() {
         waitUntilDisplayed(cancelRequestBtn);
-        cancelRequestBtn.click();
+        clickButton(cancelRequestBtn);
     }
 }

@@ -16,6 +16,6 @@ public class ListRequestsPage extends BasePage {
 
     public void clickNewRequest() {
         waitUntilDisplayed(newButton);
-        newButton.click();
+        clickButton(newButton);
     }
 }

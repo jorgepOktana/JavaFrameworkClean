@@ -1,12 +1,6 @@
 package pageObjects;
 
-import TestData.Users;
-import TestData.UsersTestData;
 import Utils.Log;
-import com.codoid.products.exception.FilloException;
-import com.codoid.products.fillo.Connection;
-import com.codoid.products.fillo.Fillo;
-import com.codoid.products.fillo.Recordset;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
@@ -17,329 +11,323 @@ import org.openqa.selenium.support.ui.*;
 import org.openqa.selenium.WebElement;
 import Utils.Utils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class BasePage extends Utils {
 
-	private static Logger logger = LogManager.getLogger(BasePage.class);
+    private static Logger logger = LogManager.getLogger(BasePage.class);
 
-	public static String baseUrl = "https://login.salesforce.com";
+    public static String baseUrl = "https://login.salesforce.com";
 
-	protected static final int WAIT_TIME = 30;
-	protected static final int POLL_INTERVAL = 2;
-	protected static final int IMPLICIT_WAIT_TIME = 8;
-	protected static final int ELEMENT_EXISTS_WAIT_TIME = 10;
+    protected static final int WAIT_TIME = 30;
+    protected static final int POLL_INTERVAL = 2;
+    protected static final int IMPLICIT_WAIT_TIME = 8;
+    protected static final int ELEMENT_EXISTS_WAIT_TIME = 10;
 
-	private boolean isLogin = false;
-	private String currentLoginUser ="NA";
+    private boolean isLogin = false;
+    private String currentLoginUser = "NA";
 
-	public void navigateToPage(String pageURL){
-		driver.get(pageURL);
-	}
+    public void navigateToPage(String pageURL) {
+        driver.get(pageURL);
+    }
 
-	protected String env;
+    protected String env;
 
-	//List of common selectors
-	//Items to check if we are on Classic and change
-	@FindBy(xpath = "//div[@id='userNavButton']")
-	public static List<WebElement> userNavButton;
+    //List of common selectors
+    //Items to check if we are on Classic and change
+    @FindBy(xpath = "//div[@id='userNavButton']")
+    public static List<WebElement> userNavButton;
 
-	@FindBy(xpath = ".//input[@id='lexTryNow']")
-	public WebElement tryNowButton;
+    @FindBy(xpath = ".//input[@id='lexTryNow']")
+    public WebElement tryNowButton;
 
-	@FindBy(id = "userNavLabel")
-	public WebElement drpSwitchToLightningById;
+    @FindBy(id = "userNavLabel")
+    public WebElement drpSwitchToLightningById;
 
-	@FindBy(xpath = "//*[@id='userNav-menuItems']/a")
-	public List<WebElement> optionSwitchToLightning;
+    @FindBy(xpath = "//*[@id='userNav-menuItems']/a")
+    public List<WebElement> optionSwitchToLightning;
 
-	//Items to log out - go to user profile
-	@FindBy(className = "uiImage")
-	public WebElement imgProfile;
+    //Items to log out - go to user profile
+    @FindBy(className = "uiImage")
+    public WebElement imgProfile;
 
-	@FindBy(className = "panel-content")
-	public WebElement panelContent;
+    @FindBy(className = "panel-content")
+    public WebElement panelContent;
 
-	@FindBy(css = ".panel-content .profile-card-toplinks")
-	public WebElement profileCard;
+    @FindBy(css = ".panel-content .profile-card-toplinks")
+    public WebElement profileCard;
 
-	@FindBy(linkText = "Log Out")
-	public WebElement logOutLink;
+    @FindBy(linkText = "Log Out")
+    public WebElement logOutLink;
 
-	@FindBy(className = "profile-card-name")
-	public WebElement profileCardName;
+    @FindBy(className = "profile-card-name")
+    public WebElement profileCardName;
 
-	//To navigate through SF objects -> All Items search
-	@FindBy(xpath = "//div[@class='slds-icon-waffle']")
-	public WebElement allItems;
+    //To navigate through SF objects -> All Items search
+    @FindBy(xpath = "//div[@class='slds-icon-waffle']")
+    public WebElement allItems;
 
-	@FindBy(xpath = "//input[@class='slds-input']")
-	public WebElement allItemsSearch;
+    @FindBy(xpath = "//input[@class='slds-input']")
+    public WebElement allItemsSearch;
 
-	@FindBy(xpath = "//one-app-launcher-menu-item")
-	public List<WebElement> allItemsResult;
+    @FindBy(xpath = "//one-app-launcher-menu-item")
+    public List<WebElement> allItemsResult;
 
-	//Common selectors for Objects - list views and button
-	@FindBy(xpath = "//span[contains(@data-aura-class,'uiOutputText forceBreadCrumbItem')]")
-	public WebElement listNameObject;
+    //Common selectors for Objects - list views and button
+    @FindBy(xpath = "//span[contains(@data-aura-class,'uiOutputText forceBreadCrumbItem')]")
+    public WebElement listNameObject;
 
-	@FindBy(css = "span.triggerLinkText.selectedListView.uiOutputText")
-	public WebElement listView;
+    @FindBy(css = "span.triggerLinkText.selectedListView.uiOutputText")
+    public WebElement listView;
 
-	@FindBy(xpath = "//div[@class='scroller']//li[contains(@class,'slds-dropdown__item')]")
-	public List<WebElement> listViewItems;
+    @FindBy(xpath = "//div[@class='scroller']//li[contains(@class,'slds-dropdown__item')]")
+    public List<WebElement> listViewItems;
 
-	@FindBy(xpath = "//div[@title='New']")
-	public WebElement newButton;
+    @FindBy(xpath = "//div[@title='New']")
+    public WebElement newButton;
 
-	@FindBy(xpath = "//div[@title='Import']")
-	public WebElement importButton;
+    @FindBy(xpath = "//div[@title='Import']")
+    public WebElement importButton;
 
-	@FindBy(xpath = "//div[@title='Change Owner']")
-	public WebElement changeOwnerButton;
+    @FindBy(xpath = "//div[@title='Change Owner']")
+    public WebElement changeOwnerButton;
 
-	@FindBy(xpath = "//input[@placeholder='Search this list...']")
-	public WebElement searchObjectBar;
+    @FindBy(xpath = "//input[@placeholder='Search this list...']")
+    public WebElement searchObjectBar;
 
-	@FindBy(xpath = "//button[@title='List View Controls']")
-	public WebElement listViewControls;
+    @FindBy(xpath = "//button[@title='List View Controls']")
+    public WebElement listViewControls;
 
-	@FindBy(xpath = "//button[@title='Display as Table']")
-	public WebElement displayTable;
+    @FindBy(xpath = "//button[@title='Display as Table']")
+    public WebElement displayTable;
 
-	@FindBy(xpath = "//button[@name='refreshButton']")
-	public WebElement refreshListBtn;
+    @FindBy(xpath = "//button[@name='refreshButton']")
+    public WebElement refreshListBtn;
 
-	@FindBy(xpath = "//tbody/tr")
-	public List<WebElement> listRows;
+    @FindBy(xpath = "//tbody/tr")
+    public List<WebElement> listRows;
 
-	//
-	@FindBy(xpath = "//iframe")
-	public WebElement iframe;
+    //
+    @FindBy(xpath = "//iframe")
+    public WebElement iframe;
 
-	@FindBy(xpath = "//*[contains(@class, 'alert-danger')]")
-	private static List<WebElement> errorElementList;
+    @FindBy(xpath = "//*[contains(@class, 'alert-danger')]")
+    private static List<WebElement> errorElementList;
 
-	/**
-	 * Constructor to initialize WebDriver and FluentWait objects using default
-	 * wait time and poll interval. Also sets the implicit wait and initializes
-	 * page elements using PageFactory.
-	 *
-	 * @param driver
-	 */
-	public BasePage (WebDriver driver) {
+    /**
+     * Constructor to initialize WebDriver and FluentWait objects using default
+     * wait time and poll interval. Also sets the implicit wait and initializes
+     * page elements using PageFactory.
+     *
+     * @param driver
+     */
+    public BasePage(WebDriver driver) {
 
-		this.driver = driver;
-		env = System.getProperty("run.env");
+        this.driver = driver;
+        env = System.getProperty("run.env");
 
-		driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_TIME, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_TIME, TimeUnit.SECONDS);
 
-		wait = new FluentWait<>(driver)
-				.withTimeout(WAIT_TIME, TimeUnit.SECONDS)
-				.pollingEvery(POLL_INTERVAL, TimeUnit.SECONDS)
-				.ignoring(StaleElementReferenceException.class)
-				.ignoring(NoSuchElementException.class);
+        wait = new FluentWait<>(driver)
+                .withTimeout(WAIT_TIME, TimeUnit.SECONDS)
+                .pollingEvery(POLL_INTERVAL, TimeUnit.SECONDS)
+                .ignoring(StaleElementReferenceException.class)
+                .ignoring(NoSuchElementException.class);
 
-		elementExistsWait = new FluentWait<>(driver)
-				.withTimeout(ELEMENT_EXISTS_WAIT_TIME, TimeUnit.SECONDS)
-				.pollingEvery(POLL_INTERVAL, TimeUnit.SECONDS)
-				.ignoring(StaleElementReferenceException.class)
-				.ignoring(NoSuchElementException.class);
+        elementExistsWait = new FluentWait<>(driver)
+                .withTimeout(ELEMENT_EXISTS_WAIT_TIME, TimeUnit.SECONDS)
+                .pollingEvery(POLL_INTERVAL, TimeUnit.SECONDS)
+                .ignoring(StaleElementReferenceException.class)
+                .ignoring(NoSuchElementException.class);
 
-		PageFactory.initElements(driver, this);
-	}
+        PageFactory.initElements(driver, this);
+    }
 
-	/**
-	 * Constructor to initialize WebDriver and FluentWait objects using specified
-	 * wait time and poll interval. Also sets the implicit wait and initializes
-	 * page elements using PageFactory.
-	 *
-	 * @param driver
-	 */
-	public BasePage(WebDriver driver, int waitTime, int pollInterval) {
+    /**
+     * Constructor to initialize WebDriver and FluentWait objects using specified
+     * wait time and poll interval. Also sets the implicit wait and initializes
+     * page elements using PageFactory.
+     *
+     * @param driver
+     */
+    public BasePage(WebDriver driver, int waitTime, int pollInterval) {
 
-		this.driver = driver;
-		env = System.getProperty("run.env");
+        this.driver = driver;
+        env = System.getProperty("run.env");
 
-		driver.manage().timeouts().implicitlyWait(waitTime, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(waitTime, TimeUnit.SECONDS);
 
-		wait = new FluentWait<WebDriver>(driver)
-				.withTimeout(waitTime, TimeUnit.SECONDS)
-				.pollingEvery(pollInterval, TimeUnit.SECONDS)
-				.ignoring(StaleElementReferenceException.class)
-				.ignoring(NoSuchElementException.class);
+        wait = new FluentWait<WebDriver>(driver)
+                .withTimeout(waitTime, TimeUnit.SECONDS)
+                .pollingEvery(pollInterval, TimeUnit.SECONDS)
+                .ignoring(StaleElementReferenceException.class)
+                .ignoring(NoSuchElementException.class);
 
-		PageFactory.initElements(driver, this);
-	}
+        PageFactory.initElements(driver, this);
+    }
 
-	public void switchToIFrame() {
-		driver.switchTo().frame(iframe);
-	}
+    public void switchToIFrame() {
+        driver.switchTo().frame(iframe);
+    }
 
-	public enum AppLauncherItems {
-		ACCOUNT("Accounts"), ATTRIBUTES("Attributes"), CLAENDER("Calendar"), CONTACTS("Contacts"), CONTAINERTEMPLATE("Container Templates"),
-		DASHBOARD("Dashboards"), DOCUMENTLIBRARY("Document Library"), FORMS("Forms"), HEALTHCHECT("HealthCheck"),
-		HELP("Help"), ICIXAPPLICATIONPREFERENCE("ICIX Application Preferences"), ICIXDOCUMENTS("ICIX Documents"),
-		ICIXPRODUCTSUNIVERSALID("ICIX Product Universal IDs"), HASBROPRODUCTS("Hasbro Products"), ICIXTASKS("ICIX Tasks"),
-		LOGS("Logs"), MESSAGE("Messages"), PRODUCTGROUPS("Product Groups"), PRODUCTTESTMANAGER("Product Test Manager"),
-		PRODUCTS("Products"), REPOSTS("Reports"), REQUESTS("Requests"), SETUP("Setup"), TASKS("Tasks"),
-		TESTINGPROGRAM("Testing Program"), TRADINGPARTNERGROUP("Trading Partner Groups"), WORKFLOWS("Workflows"), ICIXSETUP("ICIX Setup"),
-		PRODUCT_SEARCH("Product Search"), ICIX_PRODUCT("ICIX Products");
+    public enum AppLauncherItems {
+        ACCOUNT("Accounts"), ATTRIBUTES("Attributes"), CLAENDER("Calendar"), CONTACTS("Contacts"), CONTAINERTEMPLATE("Container Templates"),
+        DASHBOARD("Dashboards"), DOCUMENTLIBRARY("Document Library"), FORMS("Forms"), HEALTHCHECT("HealthCheck"),
+        HELP("Help"), ICIXAPPLICATIONPREFERENCE("ICIX Application Preferences"), ICIXDOCUMENTS("ICIX Documents"),
+        ICIXPRODUCTSUNIVERSALID("ICIX Product Universal IDs"), HASBROPRODUCTS("Hasbro Products"), ICIXTASKS("ICIX Tasks"),
+        LOGS("Logs"), MESSAGE("Messages"), PRODUCTGROUPS("Product Groups"), PRODUCTTESTMANAGER("Product Test Manager"),
+        PRODUCTS("Products"), REPOSTS("Reports"), REQUESTS("Requests"), SETUP("Setup"), TASKS("Tasks"),
+        TESTINGPROGRAM("Testing Program"), TRADINGPARTNERGROUP("Trading Partner Groups"), WORKFLOWS("Workflows"), ICIXSETUP("ICIX Setup"),
+        PRODUCT_SEARCH("Product Search"), ICIX_PRODUCT("ICIX Products");
 
-		String value;
+        String value;
 
-		AppLauncherItems(String value) {
-			this.value = value;
-		}
+        AppLauncherItems(String value) {
+            this.value = value;
+        }
 
-		public String getValue() {
-			return this.value;
-		}
+        public String getValue() {
+            return this.value;
+        }
 
-	}
+    }
 
-	/**
-	 * Method to click All Items wafle and search for the passed Item and click on it
-	 *
-	 * @param Item
-	 */
-	//Should this be on HomePage?
-	public void clickAppLauncherItem(AppLauncherItems Item) {
-		Log.info("Click App launcher Item: " + Item.getValue());
-		waitUntilDisplayed(allItems);
-		allItems.click();
-		waitUntilDisplayed(allItemsSearch);
-		allItemsSearch.sendKeys(Item.getValue());
-		clickFirstMatchingText(allItemsResult, Item.getValue());
-	}
+    /**
+     * Method to click All Items wafle and search for the passed Item and click on it
+     *
+     * @param Item
+     */
+    //Should this be on HomePage?
+    public void clickAppLauncherItem(AppLauncherItems Item) {
+        Log.info("Click App launcher Item: " + Item.getValue());
+        waitUntilDisplayed(allItems);
+        clickButton(allItems);
+        waitUntilDisplayed(allItemsSearch);
+        enterText(allItemsSearch, Item.getValue());
+        clickFirstMatchingText(allItemsResult, Item.getValue());
+    }
 
-	/**
-	 * Returns a list of errors, if any, on the current page.
-	 *
-	 * @return List of errors if present, null otherwise
-	 */
-	public List<String> checkErrors() {
+    /**
+     * Returns a list of errors, if any, on the current page.
+     *
+     * @return List of errors if present, null otherwise
+     */
+    public List<String> checkErrors() {
 
-		List<String> errorList = new ArrayList<String>();
-		try {
-			for(WebElement errorElement : waitForVisibilityOfAllElem(errorElementList)) {
-				errorList.add(errorElement.getText().trim().replaceAll("\n", ""));
-			}
-			logger.info("errorList.size() = " + errorList.size());
-			logger.info("errorList = " + errorList);
+        List<String> errorList = new ArrayList<String>();
+        try {
+            for (WebElement errorElement : waitForVisibilityOfAllElem(errorElementList)) {
+                errorList.add(errorElement.getText().trim().replaceAll("\n", ""));
+            }
+            logger.info("errorList.size() = " + errorList.size());
+            logger.info("errorList = " + errorList);
 
-		} catch (Exception e) {
-			logger.info("No errors found on the page!");
-			return null;
-		}
-		return errorList;
-	}
+        } catch (Exception e) {
+            logger.info("No errors found on the page!");
+            return null;
+        }
+        return errorList;
+    }
 
-	/**
-	 * <h1>Change URL<h1/>
-	 * <p>Purpose: This method is used to change url</p>
-	 *
-	 * @throws Exception
-	 */
-	public void changeUrl() {
-		url();
-	}
+    /**
+     * <h1>Change URL<h1/>
+     * <p>Purpose: This method is used to change url</p>
+     *
+     * @throws Exception
+     */
+    public void changeUrl() {
+        url();
+    }
 
-	public static void url() {
-		driver.get(baseUrl);
-	}
+    public static void url() {
+        driver.get(baseUrl);
+    }
 
-	public boolean isLogin() {
-		return isLogin;
-	}
+    public boolean isLogin() {
+        return isLogin;
+    }
 
-	public void setLogin(boolean login) {
-		isLogin = login;
-	}
+    public void setLogin(boolean login) {
+        isLogin = login;
+    }
 
-	public String getCurrentLoginUser() {
-		return currentLoginUser;
-	}
+    public String getCurrentLoginUser() {
+        return currentLoginUser;
+    }
 
-	public void setCurrentLoginUser(String currentLoginUser) {
-		this.currentLoginUser = currentLoginUser;
-	}
+    public void setCurrentLoginUser(String currentLoginUser) {
+        this.currentLoginUser = currentLoginUser;
+    }
 
-	/**
-	 * <h1>Switch to lightning view <h1/>
-	 * <p>Purpose:This method is used for switch to lightning view </p>
-	 *
-	 * @throws Exception
-	 */
-	public void SwitchToLightiningView() {
-		try {
-			waitForPageLoadToComplete();
-			sleep(2000);
-			waitForPageLoadToComplete();
-			int size = userNavButton.size();
-			if (tryNowButton.isDisplayed()){
-				tryNowButton.click();
-				waitForPageLoadToComplete();
-			} else if (size > 0) {
-				Log.info("Switching to Lightening view");
-				drpSwitchToLightningById.click();
-				waitUntilDisplayed(optionSwitchToLightning.get(0));
-				clickFirstMatchingText(optionSwitchToLightning, "Switch to Lightning Experience");
-				waitForPageLoadToComplete();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    /**
+     * <h1>Switch to lightning view <h1/>
+     * <p>Purpose:This method is used for switch to lightning view </p>
+     *
+     * @throws Exception
+     */
+    public void SwitchToLightiningView() {
+        try {
+            waitForPageLoad();
+            sleep(2000);
+            waitForPageLoad();
+            int size = userNavButton.size();
+            if (tryNowButton.isDisplayed()) {
+                clickButton(tryNowButton);
+                waitForPageLoad();
+            } else if (size > 0) {
+                Log.info("Switching to Lightening view");
+                clickElement(drpSwitchToLightningById, false, false);
+                waitUntilDisplayed(optionSwitchToLightning.get(0));
+                clickFirstMatchingText(optionSwitchToLightning, "Switch to Lightning Experience");
+                waitForPageLoad();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	/**
-	 * <h1>Logout from Application<h1/>
-	 * <p>Purpose: This method is used to logout from</p>
-	 *
-	 * @throws Exception
-	 */
-	public void logout() {
-		Log.info("Logging out the user");
-		try {
-			LogoutUser();
-			this.isLogin = false;
-			this.setCurrentLoginUser("NA");
-			waitForPageLoadToComplete();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		changeUrl();
-	}
+    /**
+     * <h1>Logout from Application<h1/>
+     * <p>Purpose: This method is used to logout from</p>
+     *
+     * @throws Exception
+     */
+    public void logout() {
+        Log.info("Logging out the user");
+        try {
+            LogoutUser();
+            this.isLogin = false;
+            this.setCurrentLoginUser("NA");
+            waitForPageLoad();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        changeUrl();
+    }
 
-	/**
-	 * <h1>Logout User <h1/>
-	 * <p>Purpose:This method is used for logout to application</p>
-	 */
-	public void LogoutUser() {
-		try {
-			RefreshPage();
-			waitForPageLoadToComplete();
-			SwitchToDefaultContent(10);
-			do {
-				try {
-					imgProfile.click();
-					waitUntilDisplayed(panelContent);
-					waitUntilDisplayed(profileCard);
-				} catch (Exception ex) {
-					Log.error("Logout Imgae clicked but there is problem. " + ex.getMessage());
-				}
-			} while (logOutLink.isDisplayed());
-			waitUntilDisplayed(profileCardName);
-			logOutLink.click();
-			sleep(5000);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
+    /**
+     * <h1>Logout User <h1/>
+     * <p>Purpose:This method is used for logout to application</p>
+     */
+    public void LogoutUser() {
+        try {
+            RefreshPage();
+            waitForPageLoad();
+            SwitchToDefaultContent(10);
+            do {
+                try {
+                    clickElement(imgProfile, false, false);
+                    waitUntilDisplayed(panelContent);
+                    waitUntilDisplayed(profileCard);
+                } catch (Exception ex) {
+                    Log.error("Logout Imgae clicked but there is problem. " + ex.getMessage());
+                }
+            } while (logOutLink.isDisplayed());
+            waitUntilDisplayed(profileCardName);
+            clickElement(logOutLink, true, false);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 }

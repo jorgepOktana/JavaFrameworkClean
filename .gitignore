@@ -3,7 +3,7 @@
 
 #Ignore maven wrapper files
 target
-.idea/
+.idea/*
 .mvn/wrapper/*
 .mvn/*
 *.mvn

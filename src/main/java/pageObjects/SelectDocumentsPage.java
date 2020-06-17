@@ -57,7 +57,7 @@ public class SelectDocumentsPage extends BasePage {
     public void searchDocument(String document){
         switchToIFrame();
         waitUntilDisplayed(documentSearch);
-        enterInTextBox(documentSearch, document);
+        enterText(documentSearch, document);
     }
 
     public void selectDocumentForm(String document){
@@ -67,7 +67,7 @@ public class SelectDocumentsPage extends BasePage {
 
     public void clickAttach(){
         waitUntilDisplayed(attachBtn);
-        attachBtn.click();
+        clickButton(attachBtn);
     }
 
     /**
@@ -98,12 +98,12 @@ public class SelectDocumentsPage extends BasePage {
 
     public void closeDocumentModal(){
         waitUntilDisplayed(closeDocumentsModal);
-        closeDocumentsModal.click();
+        clickButton(closeDocumentsModal);
     }
 
     public void clickCancelBtn(){
         waitUntilDisplayed(cancelBtn);
-        cancelBtn.click();
+        clickButton(cancelBtn);
     }
 
     public boolean isAttachEnabled() {
@@ -113,23 +113,23 @@ public class SelectDocumentsPage extends BasePage {
 
     public void clickSave() {
         waitUntilDisplayed(saveButton);
-        saveButton.click();
+        clickButton(saveButton);
     }
 
     public void clickSkip() {
         waitUntilDisplayed(skipButton);
-        skipButton.click();
+        clickButton(skipButton);
     }
 
     public void clickBack() {
         waitUntilDisplayed(backButton);
-        backButton.click();
+        clickButton(backButton);
     }
 
     public void addRelatedRequest(boolean add, String relatedRequest){
         waitUntilDisplayed(relatedRequestPicklist);
         if (add){
-            enterInTextBox(relatedRequestPicklist, relatedRequest);
+            enterText(relatedRequestPicklist, relatedRequest);
             clickSave();
         } else {
             clickSkip();

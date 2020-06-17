@@ -43,10 +43,10 @@ public class LoginPage extends BasePage{
 	 * @throws Exception
 	 */
 	public void LoginUser(String UserName, String Password) throws Exception {
-		enterInTextBox(txtUsername, UserName);
-		enterInTextBox(txtPassword, Password);
-		btnLogin.click();
-		waitForPageLoadToComplete();
+		enterText(txtUsername, UserName);
+		enterText(txtPassword, Password);
+		clickButton(btnLogin);
+		waitForPageLoad();
 		boolean isLogin = !txtUsername.isDisplayed();
 		//Verify if Change password screen appear
 		if (isLogin) {
@@ -58,7 +58,7 @@ public class LoginPage extends BasePage{
 		if (!isLogin) {
 			Log.info("Login Failed");
 		}
-		waitForPageLoadToComplete();
+		waitForPageLoad();
 	}
 
 	public void loginAs(String actor) throws Exception {
