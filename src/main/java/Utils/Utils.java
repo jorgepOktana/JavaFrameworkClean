@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.support.pagefactory.ByAll;
 import org.openqa.selenium.support.ui.*;
 import pageObjects.BasePage;
 
@@ -170,10 +171,10 @@ public class Utils {
         try {
             elementExistsWait.until(ExpectedConditions.elementToBeClickable(element));
         } catch (Exception e) {
-            logger.info("elementExists::Exception thrown::element does not exist");
+            logger.info("Element does not exist");
             return false;
         }
-        logger.info("elementExists::Exception not thrown::element exists");
+        logger.info("Exception not thrown::element exists");
         return true;
     }
 
@@ -473,6 +474,45 @@ public class Utils {
         return false;
     }
 
+    public static boolean isElementPresent(String findByMethod, String selectorString) {
+        setImplicitWaitTime(Time.MINIMUM.getValue());
+        boolean toReturn;
+        try {
+            switch (findByMethod.toLowerCase()) {
+                case "id":
+                    toReturn = driver.findElement(By.id(selectorString)).isDisplayed();
+                    break;
+                case "cssselector":
+                    toReturn = driver.findElement(By.cssSelector(selectorString)).isDisplayed();
+                    break;
+                case "classname":
+                    toReturn = driver.findElement(By.className(selectorString)).isDisplayed();
+                    break;
+                case "xpath":
+                    toReturn = driver.findElement(By.xpath(selectorString)).isDisplayed();
+                    break;
+                case "tagname":
+                    toReturn = driver.findElement(By.tagName(selectorString)).isDisplayed();
+                    break;
+                default:
+                    throw new IllegalArgumentException("Please define a valid findByMethod");
+            }
+        } catch (NoSuchElementException | IllegalArgumentException e) {
+            toReturn = false;
+        }
+        setImplicitWaitTime(Time.HALF_MINUTE.getValue());
+        return toReturn;
+    }
+
+    /**
+     * Method setImplicitWaitTime: This method is used to set implicit wait time for current driver being used to a given value in seconds.
+     *
+     * @param seconds : seconds to set the implicit wait time to in int.
+     */
+    protected static void setImplicitWaitTime(int seconds) {
+            driver.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
+    }
+
     /**
      * Common method to validate a collection is not empty
      */
@@ -640,4 +680,16 @@ public class Utils {
             throw new Exception(String.format("Test data not found for Module: '%s' and TestId: '%s'", module, testId));
         }
     }//End function
+
+    /**
+     * <h1> Get Current URL<h1/>
+     * <p>Purpose:This method is used for get current url </p>
+     */
+    public static String GetCurrentUrl() {
+        if (driver != null) {
+            return driver.getCurrentUrl();
+        } else
+            return "";
+    }
+
 }

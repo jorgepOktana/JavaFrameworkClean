@@ -269,21 +269,19 @@ public class BasePage extends Utils {
     public void SwitchToLightiningView() {
         try {
             waitForPageLoad();
-            sleep(2000);
-            waitForPageLoad();
             int size = userNavButton.size();
             if (tryNowButton.isDisplayed()) {
                 clickButton(tryNowButton);
                 waitForPageLoad();
             } else if (size > 0) {
-                Log.info("Switching to Lightening view");
+                Log.info("Switching to Lightning view");
                 clickElement(drpSwitchToLightningById, false, false);
                 waitUntilDisplayed(optionSwitchToLightning.get(0));
                 clickFirstMatchingText(optionSwitchToLightning, "Switch to Lightning Experience");
                 waitForPageLoad();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.fail("Unable to switch to Lightning - " + e.getMessage());
         }
     }
 
