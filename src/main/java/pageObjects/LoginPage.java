@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import Utils.Log;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
 
 
 public class LoginPage extends BasePage{
@@ -60,77 +59,8 @@ public class LoginPage extends BasePage{
 		if (!isLogin) {
 			Log.info("Login Failed");
 		}
-		waitForPageLoad();
-	}
-
-	public void loginAs(String actor) throws Exception {
-		driver.switchTo().defaultContent();
-
-		if (this.isLogin()) {
-			if(!this.getCurrentLoginUser().equals(actor))
-			{
-				logout();
-			}else {
-				Log.info( actor +" is already logged in");
-				return;
-			}
-		}
-		switch (actor) {
-			case "Requestor_Admin":
-				LoginUser(GlobalTestData.Requester_Admin.getUserId(), GlobalTestData.Requester_Admin.getPassword());
-				this.isLogin = true;
-				setCurrentLoginUser(actor);
-				SwitchToLightiningView();
-				Log.info("Requestor_Admin logged in successfully.");
-				GlobalTestData.RequesterUrl = driver.getCurrentUrl();
-				break;
-
-			case "Responder_Admin":
-				LoginUser(GlobalTestData.Responder_Admin.getUserId(), GlobalTestData.Responder_Admin.getPassword());
-				this.isLogin = true;
-				setCurrentLoginUser(actor);
-				SwitchToLightiningView();
-				Log.info("Responder_Admin logged in successfully.");
-				GlobalTestData.ResponderUrl = driver.getCurrentUrl();
-				break;
-
-			case "Laboratory_Admin":
-				LoginUser(GlobalTestData.Lab_Admin.getUserId(), GlobalTestData.Lab_Admin.getPassword());
-				this.isLogin = true;
-				setCurrentLoginUser(actor);
-				SwitchToLightiningView();
-				Log.info("Laboratory_Admin logged in successfully.");
-				GlobalTestData.LabUrl = driver.getCurrentUrl();
-				break;
-			case "Requestor_SPU":
-				LoginUser(GlobalTestData.Requester_SPU.getUserId(), GlobalTestData.Requester_SPU.getPassword());
-				this.isLogin = true;
-				setCurrentLoginUser(actor);
-				SwitchToLightiningView();
-				Log.info("Requestor_SPU logged in successfully.");
-				GlobalTestData.RequesterUrl = driver.getCurrentUrl();
-				break;
-
-			case "Responder_SPU":
-				LoginUser(GlobalTestData.Responder_SPU.getUserId(), GlobalTestData.Responder_SPU.getPassword());
-				this.isLogin = true;
-				setCurrentLoginUser(actor);
-				SwitchToLightiningView();
-				Log.info("Responder_SPU logged in successfully.");
-				GlobalTestData.ResponderUrl = driver.getCurrentUrl();
-				break;
-
-			case "Laboratory_SPU":
-				LoginUser(GlobalTestData.Lab_SPU.getUserId(), GlobalTestData.Lab_SPU.getPassword());
-				this.isLogin = true;
-				setCurrentLoginUser(actor);
-				SwitchToLightiningView();
-				Log.info("Laboratory_SPU logged in successfully.");
-				GlobalTestData.LabUrl = driver.getCurrentUrl();
-				break;
-			default:
-				Assert.assertTrue(false, "Not a valid user type.");
-		}
+//		getMainWindow();
+//		waitForPageLoad();
 	}
 
 	public void loginAs(Users.TYPE userType) throws Exception {
@@ -143,8 +73,9 @@ public class LoginPage extends BasePage{
 			switch(userType) {
 				case Requester_Admin:
 					driver.navigate().to(Users.Requester_Admin.getUrl());
+//					waitForPageLoad();
 					LoginUser(Users.Requester_Admin.getUserId(), Users.Requester_Admin.getPassword());
-					SwitchToLightiningView();
+//					switchToLightning();
 					Log.info(userType.name() + " logged in successfully.");
 					GlobalTestData.RequesterUrl = GetCurrentUrl();
 					this.isLogin = true;
@@ -153,7 +84,7 @@ public class LoginPage extends BasePage{
 				case Requester_SPU:
 					driver.navigate().to(Users.Requester_Admin.getUrl());
 					LoginUser(Users.Requester_SPU.getUserId(), Users.Requester_SPU.getPassword());
-					SwitchToLightiningView();
+					switchToLightning();
 					Log.info(userType.name() + " logged in successfully.");
 					GlobalTestData.RequesterUrl = GetCurrentUrl();
 					this.isLogin = true;
@@ -163,7 +94,7 @@ public class LoginPage extends BasePage{
 				case QE:
 					driver.navigate().to(Users.Requester_Admin.getUrl());
 					LoginUser(Users.QE.getUserId(), Users.QE.getPassword());
-					SwitchToLightiningView();
+					switchToLightning();
 					Log.info(userType.name() + " logged in successfully.");
 					GlobalTestData.RequesterUrl = GetCurrentUrl();
 					this.isLogin = true;
@@ -172,7 +103,7 @@ public class LoginPage extends BasePage{
 				case Factory:
 					driver.navigate().to(Users.Requester_Admin.getUrl());
 					LoginUser(Users.Integration.getUserId(), Users.Integration.getPassword());
-					SwitchToLightiningView();
+					switchToLightning();
 					Log.info(userType.name() + " logged in successfully.");
 					GlobalTestData.RequesterUrl = GetCurrentUrl();
 					this.isLogin = true;
@@ -181,7 +112,7 @@ public class LoginPage extends BasePage{
 				case Integration:
 					driver.navigate().to(Users.Requester_Admin.getUrl());
 					LoginUser(Users.Factory.getUserId(), Users.Factory.getPassword());
-					SwitchToLightiningView();
+					switchToLightning();
 					Log.info(userType.name() + " logged in successfully.");
 					GlobalTestData.RequesterUrl = GetCurrentUrl();
 					this.isLogin = true;
@@ -190,7 +121,7 @@ public class LoginPage extends BasePage{
 				case Responder_Admin:
 					driver.navigate().to(Users.Responder_Admin.getUrl());
 					LoginUser(Users.Responder_Admin.getUserId(), Users.Responder_Admin.getPassword());
-					SwitchToLightiningView();
+					switchToLightning();
 					Log.info(userType.name() + " logged in successfully.");
 					GlobalTestData.RequesterUrl = GetCurrentUrl();
 					this.isLogin = true;
@@ -199,7 +130,7 @@ public class LoginPage extends BasePage{
 				case Responder_SPU:
 					driver.navigate().to(Users.Responder_Admin.getUrl());
 					LoginUser(Users.Responder_SPU.getUserId(), Users.Responder_SPU.getPassword());
-					SwitchToLightiningView();
+					switchToLightning();
 					Log.info(userType.name() + " logged in successfully.");
 					GlobalTestData.RequesterUrl = GetCurrentUrl();
 					this.isLogin = true;
@@ -209,7 +140,7 @@ public class LoginPage extends BasePage{
 				case Lab_Admin:
 					driver.navigate().to(Users.Lab_Admin.getUrl());
 					LoginUser(Users.Lab_Admin.getUserId(), Users.Lab_Admin.getPassword());
-					SwitchToLightiningView();
+					switchToLightning();
 					Log.info(userType.name() + " logged in successfully.");
 					GlobalTestData.RequesterUrl = GetCurrentUrl();
 					this.isLogin = true;
@@ -218,7 +149,7 @@ public class LoginPage extends BasePage{
 				case Lab_SPU:
 					driver.navigate().to(Users.Lab_Admin.getUrl());
 					LoginUser(Users.Lab_SPU.getUserId(), Users.Lab_SPU.getPassword());
-					SwitchToLightiningView();
+					switchToLightning();
 					Log.info(userType.name() + " logged in successfully.");
 					GlobalTestData.RequesterUrl = GetCurrentUrl();
 					this.isLogin = true;

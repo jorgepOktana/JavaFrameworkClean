@@ -77,8 +77,8 @@ public class SelectDocumentsPage extends BasePage {
      * @param document
      * @param category
      */
-    public void attachDocumentForm(String document, String category){
-        switchToIFrame();
+    public void attachDocumentForm(String category, String document){
+//        switchToIFrame();
         selectDocumentCategory(category);
         selectDocumentForm(document);
         clickAttach();

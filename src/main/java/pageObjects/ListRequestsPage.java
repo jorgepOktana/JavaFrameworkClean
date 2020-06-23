@@ -1,5 +1,6 @@
 package pageObjects;
 
+import Utils.Log;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,7 +16,11 @@ public class ListRequestsPage extends BasePage {
     }
 
     public void clickNewRequest() {
-        waitUntilDisplayed(newButton);
-        clickButton(newButton);
+        if (isCurrentPage()) {
+            waitUntilDisplayed(newButton);
+            clickButton(newButton);
+        } else {
+            Log.error("Not on Requests List Page");
+        }
     }
 }

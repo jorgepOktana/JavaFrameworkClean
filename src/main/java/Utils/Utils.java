@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.support.pagefactory.ByAll;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 import pageObjects.BasePage;
 
@@ -33,6 +33,25 @@ public class Utils {
     protected static WebDriver driver = null;
     protected Wait<WebDriver> wait = null;
     protected Wait<WebDriver> elementExistsWait = null;
+    public String  mainHandle = null;
+
+    public void getMainWindow(){
+        mainHandle = driver.getWindowHandle();
+    }
+
+    public String setCurrentWindow(){
+        return mainHandle;
+    }
+
+    public void switchToIFrame() {
+        WebElement iFrame = driver.findElement(By.xpath("//iframe"));
+        try {
+            driver.switchTo().frame(iFrame);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
     /**
      * Common method to wait for visibility of all elements specified.
@@ -319,6 +338,8 @@ public class Utils {
                     ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", webElement);
                     sleepSeconds(Time.MINIMUM.getValue());
                 }
+                waitUntilDisplayed(webElement);
+//                clickUsingJs(webElement);
                 webElement.click();
                 if (addSleep) {
                     sleepSeconds(Time.MINIMUM.getValue());
@@ -363,12 +384,13 @@ public class Utils {
      * @param elements, list of WebElements
      * @param text,     text to search and click
      */
-    public static boolean clickFirstMatchingText(List<WebElement> elements, String text) {
+    public boolean clickFirstMatchingText(List<WebElement> elements, String text) {
         if (isNotEmpty(elements)) {
             for (WebElement element : elements) {
+                waitUntilDisplayed(element);
                 try {
                     if (element.getText().toLowerCase().equals(text.toLowerCase())) {
-                        element.click();
+                        clickUsingJs(element);
                         return true;
                     }
                 } catch (NullPointerException e) {
@@ -384,6 +406,11 @@ public class Utils {
             }
         }
         return false;
+    }
+
+    public static void clickUsingJs(WebElement wb){
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("arguments[0].click();", wb);
     }
 
     public static boolean clickFirstContainsText(List<WebElement> elements, String text) {

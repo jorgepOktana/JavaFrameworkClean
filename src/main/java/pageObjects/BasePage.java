@@ -10,6 +10,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.*;
 import org.openqa.selenium.WebElement;
 import Utils.Utils;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.STXstringImpl;
+import org.testng.Assert;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -27,6 +29,11 @@ public class BasePage extends Utils {
 
     private boolean isLogin = false;
     private String currentLoginUser = "NA";
+
+    public String currentRequestName = null;
+    public String currentProduct = null;
+    public String currentTradingPartner = null;
+    public String currentRequestType = null;
 
     public void navigateToPage(String pageURL) {
         driver.get(pageURL);
@@ -71,8 +78,11 @@ public class BasePage extends Utils {
     @FindBy(xpath = "//input[@class='slds-input']")
     public WebElement allItemsSearch;
 
-    @FindBy(xpath = "//one-app-launcher-menu-item")
+    @FindBy(xpath = "//one-app-launcher-menu-item//span")
     public List<WebElement> allItemsResult;
+
+    @FindBy(xpath = "//button[contains(.,'View All')]")
+    public WebElement allItemsViewAll;
 
     //Common selectors for Objects - list views and button
     @FindBy(xpath = "//span[contains(@data-aura-class,'uiOutputText forceBreadCrumbItem')]")
@@ -108,12 +118,11 @@ public class BasePage extends Utils {
     @FindBy(xpath = "//tbody/tr")
     public List<WebElement> listRows;
 
-    //
-    @FindBy(xpath = "//iframe")
-    public WebElement iframe;
-
     @FindBy(xpath = "//*[contains(@class, 'alert-danger')]")
     private static List<WebElement> errorElementList;
+
+    @FindBy(css = ".toastContent .toastMessage")
+    public WebElement toastMessage;
 
     /**
      * Constructor to initialize WebDriver and FluentWait objects using default
@@ -167,10 +176,6 @@ public class BasePage extends Utils {
         PageFactory.initElements(driver, this);
     }
 
-    public void switchToIFrame() {
-        driver.switchTo().frame(iframe);
-    }
-
     public enum AppLauncherItems {
         ACCOUNT("Accounts"), ATTRIBUTES("Attributes"), CLAENDER("Calendar"), CONTACTS("Contacts"), CONTAINERTEMPLATE("Container Templates"),
         DASHBOARD("Dashboards"), DOCUMENTLIBRARY("Document Library"), FORMS("Forms"), HEALTHCHECT("HealthCheck"),
@@ -205,7 +210,8 @@ public class BasePage extends Utils {
         clickButton(allItems);
         waitUntilDisplayed(allItemsSearch);
         enterText(allItemsSearch, Item.getValue());
-        clickFirstMatchingText(allItemsResult, Item.getValue());
+//        driver.switchTo().defaultContent();
+        Assert.assertTrue(clickFirstMatchingText(allItemsResult, Item.getValue()));
     }
 
     /**
@@ -266,7 +272,7 @@ public class BasePage extends Utils {
      *
      * @throws Exception
      */
-    public void SwitchToLightiningView() {
+    public void switchToLightning() {
         try {
             waitForPageLoad();
             int size = userNavButton.size();
