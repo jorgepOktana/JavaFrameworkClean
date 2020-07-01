@@ -43,10 +43,10 @@ public class Utils {
         return mainHandle;
     }
 
-    public void switchToIFrame() {
-        WebElement iFrame = driver.findElement(By.xpath("//iframe"));
+    public void switchToIFrame(WebElement iframe) {
+        waitUntilDisplayed(iframe);
         try {
-            driver.switchTo().frame(iFrame);
+            driver.switchTo().frame(iframe);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -366,7 +366,7 @@ public class Utils {
     public static void enterText(WebElement editText, String text) {
         for (int i = 0; i < 2; i++) {
             try {
-                waitUntilDisplayed(editText);
+//                waitUntilDisplayed(editText);
 //                    assertTrue(editText.isDisplayed());
                 editText.clear();
                 editText.sendKeys(text);
@@ -580,11 +580,10 @@ public class Utils {
         }
     }
 
-    public static void SwitchToDefaultContent(int Interval) {
+    public static void SwitchToDefaultContent() {
         try {
             System.out.println("Switching default");
             driver.switchTo().defaultContent();
-            Thread.sleep(Interval);
         } catch (Exception e) {
             Log.error("There is an exception: " + e.toString());
         }

@@ -1,6 +1,7 @@
 import TestData.RequestTestData;
 import TestData.Users;
 import Utils.Log;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -30,7 +31,7 @@ public class CreateRequestTest {
 
     public void beforeTest() throws Exception {
         login();
-//        requestTestData.GetData("QA_59_Test");
+        RequestTestData.GetData("QA_7540_Test");
         homePage.clickAppLauncherItem(BasePage.AppLauncherItems.REQUESTS);
     }
 
@@ -41,9 +42,11 @@ public class CreateRequestTest {
 
     private void populateRequest() {
         listRequestsPage.clickNewRequest();
-        newRequestPage.switchToIFrame();
-        newRequestPage.enterRequestName("This is a test request");
-        Assert.assertTrue(newRequestPage.setRequestTypeAndSearch("Product", "QA-41 Jorge Product - Test"));
+        newRequestPage.switchToRequestFrame();
+//        newRequestPage.enterRequestName("This is a test request");
+        newRequestPage.enterRequestName(RequestTestData.getRequestName());
+        Assert.assertTrue(newRequestPage.setRequestTypeAndSearch(RequestTestData.getRequestType(),RequestTestData.getTpOrPrdctName()));
+//        Assert.assertTrue(newRequestPage.setRequestTypeAndSearch("Product", "QA-41 Jorge Product - Test"));
 
         //Need to discuss if this is the best approach to get testData (testId is required so far)
 //        newRequestPage.enterRequestName(RequestTestData.getRequestName());
@@ -53,8 +56,8 @@ public class CreateRequestTest {
 
     private void attachDocuments() {
         newRequestPage.clickSelectDocumentBtn();
-        selectDocumentsPage.attachDocumentForm("Form", "test");
-//        selectDocumentsPage.attachDocumentForm(RequestTestData.getDocCategory(), RequestTestData.getDocName());
+//        selectDocumentsPage.attachDocumentForm("Form", "test");
+        selectDocumentsPage.attachDocumentForm(RequestTestData.getDocCategory(), RequestTestData.getDocName());
 //        selectDocumentsPage.addRelatedRequest(true, "");
         selectDocumentsPage.clickSave();
     }
@@ -64,8 +67,8 @@ public class CreateRequestTest {
     }
 
     private void setComments() {
-        newRequestPage.setTxtRequestComments("this are test comments");
-//        newRequestPage.setRequestComments(RequestTestData.getComment());
+//        newRequestPage.setTxtRequestComments("this are test comments");
+        newRequestPage.setTxtRequestComments(RequestTestData.getComment());
     }
 
     private void saveRequest() {
@@ -74,13 +77,15 @@ public class CreateRequestTest {
 
     private void confirmRequest(){
         Assert.assertTrue(newRequestPage.confirmSelectedItems());
-        newRequestPage.clickYes();
+        try {
+            newRequestPage.clickYes();
+        } catch (Exception e) {
+            newRequestPage.clickYesExisting();
+        }
+
     }
 
     public void getToast() {
-        newRequestPage.waitUntilDisplayed(newRequestPage.toastMessage);
-        String toast = newRequestPage.toastMessage.getText();
-        Log.info(toast);
+        Assert.assertTrue(newRequestPage.getToast().equals("1 request sent successfully"));
     }
-
 }

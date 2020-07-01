@@ -55,7 +55,7 @@ public class SelectDocumentsPage extends BasePage {
     }
 
     public void searchDocument(String document){
-        switchToIFrame();
+//        switchToIFrame();
         waitUntilDisplayed(documentSearch);
         enterText(documentSearch, document);
     }

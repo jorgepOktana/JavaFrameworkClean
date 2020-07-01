@@ -47,6 +47,7 @@ public class LoginPage extends BasePage{
 		enterText(txtUsername, UserName);
 		enterText(txtPassword, Password);
 		clickButton(btnLogin);
+//		waitForPageLoad();
 		sleepSeconds(5);
 		boolean isLogin = !isElementPresent("id", "username");
 		//Verify if Change password screen appear
@@ -59,8 +60,7 @@ public class LoginPage extends BasePage{
 		if (!isLogin) {
 			Log.info("Login Failed");
 		}
-//		getMainWindow();
-//		waitForPageLoad();
+		Log.info("Logged in successfully as: "+ UserName+ "/ "+ Password);
 	}
 
 	public void loginAs(Users.TYPE userType) throws Exception {
