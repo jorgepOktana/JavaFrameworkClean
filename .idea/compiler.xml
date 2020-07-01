@@ -9,5 +9,8 @@
         <module name="ICIX" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ICIX-Clean-V1" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
