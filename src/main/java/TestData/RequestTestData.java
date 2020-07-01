@@ -18,58 +18,58 @@ public class RequestTestData extends BasePage {
 
 
     //Get Testdata from excel file
-    private String RequestName, RequestType, TpOrPrdctName, DocCategory, DocName, Comment, ApproveOrRejectComments, WorkflowStatus;
+    private static String RequestName, RequestType, TpOrPrdctName, DocCategory, DocName, Comment, ApproveOrRejectComments, WorkflowStatus;
 
     public RequestTestData(WebDriver driver) {
         super(driver);
     }
 
-    public String getRequestName() {
+    public static String getRequestName() {
         return RequestName;
     }
 
 
-    public void setRequestName(String requestName) {
+    public static void setRequestName(String requestName) {
         RequestName = requestName;
     }
 
-    public String getRequestType() {
+    public static String getRequestType() {
         return RequestType;
     }
 
-    public void setRequestType(String requestType) {
+    public static void setRequestType(String requestType) {
         RequestType = requestType;
     }
 
-    public String getTpOrPrdctName() {
+    public static String getTpOrPrdctName() {
         return TpOrPrdctName;
     }
 
-    public void setTpOrPrdctName(String tpOrPrdctName) {
+    public static void setTpOrPrdctName(String tpOrPrdctName) {
         TpOrPrdctName = tpOrPrdctName;
     }
 
-    public String getDocCategory() {
+    public static String getDocCategory() {
         return DocCategory;
     }
 
-    public void setDocCategory(String docCategory) {
+    public static void setDocCategory(String docCategory) {
         DocCategory = docCategory;
     }
 
-    public String getDocName() {
+    public static String getDocName() {
         return DocName;
     }
 
-    public void setDocName(String docName) {
+    public static void setDocName(String docName) {
         DocName = docName;
     }
 
-    public String getComment() {
+    public static String getComment() {
         return Comment;
     }
 
-    public void setComment(String comment) {
+    public static void setComment(String comment) {
         Comment = comment;
     }
 
@@ -77,7 +77,7 @@ public class RequestTestData extends BasePage {
         return ApproveOrRejectComments;
     }
 
-    public void setApproveOrRejectComments(String approveOrRejectComments) {
+    public static void setApproveOrRejectComments(String approveOrRejectComments) {
         ApproveOrRejectComments = approveOrRejectComments;
     }
 
@@ -102,29 +102,29 @@ public class RequestTestData extends BasePage {
                 '}';
     }
 
-    public void GetData(String testId) throws Exception {
+    public static void GetData(String testId) throws Exception {
         Recordset rs = GetTestData("Request", testId);
         Date d = new Date(System.currentTimeMillis());
         while (rs.next()) {
             //Request name
-            this.setRequestName(rs.getField("Request name") + " " + GetTimeStamp());
+            setRequestName(rs.getField("Request name") + " " + GetTimeStamp());
 
             //Request Type
-            this.setRequestType(rs.getField("Request Type"));
+            setRequestType(rs.getField("Request Type"));
 
             //TP name Or Product name
-            this.setTpOrPrdctName(rs.getField("TP name Or Product name"));
+            setTpOrPrdctName(rs.getField("TP name Or Product name"));
 
             //Document category
-            this.setDocCategory(rs.getField("Document category"));
+            setDocCategory(rs.getField("Document category"));
 
             //Document name
-            this.setDocName(rs.getField("Document name"));
+            setDocName(rs.getField("Document name"));
 
             //Comment
-            this.setComment(rs.getField("Comment"));
+            setComment(rs.getField("Comment"));
             //ApproveOrRejectCommentsComment
-            this.setApproveOrRejectComments(rs.getField("ApproveOrRejectComments"));
+            setApproveOrRejectComments(rs.getField("ApproveOrRejectComments"));
         }//End while
         rs.close();
 

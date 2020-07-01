@@ -1,10 +1,11 @@
 package TestData;
 
-import icix.Utils.ReportUtil;
+import org.openqa.selenium.WebDriver;
+import pageObjects.BasePage;
 
 import java.util.*;
 
-public class GlobalTestData {
+public class GlobalTestData extends BasePage {
     public static Set<String> DocumentToDelete = new HashSet<String>();
     public static String TPName = "";
     public static String ProductGroupName = "";
@@ -59,12 +60,16 @@ public class GlobalTestData {
 
     public static Map<String, Set<String>> testCoverageMap = new HashMap<>();
 
-    public static Set<String> getCoverageIds(String key) {
-        if (testCoverageMap.containsKey(key)){
-            testCoverageMap.get(key).removeAll(ReportUtil.started_tests);
-            return testCoverageMap.get(key);
-        }
-        return Collections.EMPTY_SET;
+    public GlobalTestData(WebDriver driver) {
+        super(driver);
     }
+
+//    public static Set<String> getCoverageIds(String key) {
+//        if (testCoverageMap.containsKey(key)){
+//            testCoverageMap.get(key).removeAll(ReportUtil.started_tests);
+//            return testCoverageMap.get(key);
+//        }
+//        return Collections.EMPTY_SET;
+//    }
 
 }

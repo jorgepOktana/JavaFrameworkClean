@@ -14,20 +14,4 @@ public class SalesforceSetupPage extends BasePage{
 		super(driver);
 	}
 
-	public WebElement getSearchBoxInput() {
-		By locator = By.xpath(SEARCH_BOX_XPATH);
-		waitForElementToLoad(locator);
-		WebElement element = driver.findElement(locator);
-
-		return element;
-	}
-
-	public WebElement getMarkedSearchResult() {
-		By locator = By.cssSelector(SEARCH_RESULT_CSS);
-		waitForElementToLoad(locator);
-		WebElement element = driver.findElement(locator);
-
-		return element;
-	}
-
 }

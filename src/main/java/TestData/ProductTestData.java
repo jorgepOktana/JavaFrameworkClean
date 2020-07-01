@@ -1,16 +1,17 @@
 package TestData;
 
 import com.codoid.products.fillo.Recordset;
-import icix.Utils.Common;
-import icix.Utils.ExcelUtil;
+import org.jsoup.Connection;
+import org.openqa.selenium.WebDriver;
+import pageObjects.BasePage;
 
 import java.util.Date;
 
-public class ProductTestData {
+public class ProductTestData extends BasePage {
     // public static String ProductName ="Product Testing"+date;
     public static String id = "UPC";
     // public static String ProductGroupTag="DigitalW"; // New Added
-    public static String ProductGroupTag = Common.GetUserData("ProductGroupTag");
+    public static String ProductGroupTag = GetUserData("ProductGroupTag");
     static Date d = new Date(System.currentTimeMillis());
     public static String prodGrpName = "Automation Product Group " + d;
     public static String prodEditGrpName = "Automation Product Editing Group " + d; // New Added
@@ -18,6 +19,10 @@ public class ProductTestData {
     private String TpNameToSearchProduct, UniversalID, ProductName, ProductIdType, IDText, ProductDescriptions, TPName,
             RelationshipStatus, RelationshipType, InternalProductIDsType, InternalProductIDsValue, RelationshipTag,
             PrivacySettings, RelationshipAttribute, RelationshipAttributeValuesForCountry, AttributeTypeFromFilter, EnterNewTagName;
+
+    public ProductTestData(WebDriver driver) {
+        super(driver);
+    }
 
     public String getTpNameToSearchProduct() {
         return TpNameToSearchProduct;
@@ -182,7 +187,7 @@ public class ProductTestData {
     }
 
     public void GetData(String testId) throws Exception {
-        Recordset rs = ExcelUtil.GetTestData("ProductSearch", testId);
+        Recordset rs = GetTestData("ProductSearch", testId);
         Date d = new Date(System.currentTimeMillis());
         while (rs.next()) {
             // TpNameToSearchProduct
@@ -192,7 +197,7 @@ public class ProductTestData {
             this.setUniversalID(rs.getField("UniversalID"));
 
             // ProductName
-            this.setProductName(rs.getField("ProductName") + " " + Common.GetTimeStamp());
+            this.setProductName(rs.getField("ProductName") + " " + GetTimeStamp());
 
             // ProductIdType
             this.setProductIdType(rs.getField("ProductIdType"));
