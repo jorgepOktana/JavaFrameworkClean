@@ -99,12 +99,21 @@ public class NewRequestPage extends BasePage {
     @FindBy(xpath = "(//span[contains(.,'Yes')])[2]")
     public WebElement btnYesConfirmation;
 
+    @FindBy(xpath = "(//span[contains(.,'Yes')])[3]")
+    public WebElement btnYesConfirmationExisting;
+
+    @FindBy(xpath = "//iframe[contains(@height,'100%')]")
+    public WebElement requestIframe;
+
+    @FindBy(xpath = "//slds-toast//h2")
+    public WebElement requestToast;
+
     public boolean isCurrentPage() {
         return pageName.getText().equalsIgnoreCase("Create New Request");
     }
 
     public void switchToRequestFrame() {
-        switchToIFrame();
+        switchToIFrame(requestIframe);
     }
 
     public void enterRequestName(String requestName) {
@@ -221,5 +230,21 @@ public class NewRequestPage extends BasePage {
 
     public void clickYes(){
         clickButton(btnYesConfirmation);
+    }
+
+    public void clickYesExisting(){
+        clickButton(btnYesConfirmationExisting);
+    }
+
+    public void switchToDefault() {
+        SwitchToDefaultContent();
+    }
+
+    public String getToast() {
+//        sleepSeconds(1);
+        waitUntilDisplayed(requestToast);
+        String toast = requestToast.getText();
+        Log.info(toast);
+        return toast;
     }
 }

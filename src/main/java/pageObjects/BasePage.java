@@ -318,7 +318,7 @@ public class BasePage extends Utils {
         try {
             RefreshPage();
             waitForPageLoad();
-            SwitchToDefaultContent(10);
+            SwitchToDefaultContent();
             do {
                 try {
                     clickElement(imgProfile, false, false);
