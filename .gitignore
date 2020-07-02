@@ -2,11 +2,14 @@
 *.DS_Store
 
 #Ignore maven wrapper files
+target/
+.idea/*
 .mvn/wrapper/*
 .mvn/*
 *.mvn
 mvnw.cmd
 mvnw.*
+ExecutionReports
 
 
 
