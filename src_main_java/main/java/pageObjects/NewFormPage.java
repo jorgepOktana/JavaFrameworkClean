@@ -90,26 +90,23 @@ public class NewFormPage {
 
 
     //------------------Screen: Sections---------------------------------------------------
-    /*public static By btnAddSection = cssSelector("input[id$='createSection'][type='submit']");
-    public static By tblSection = cssSelector("table[id$='sectionTable']");
-    public static By tblSectionRows = cssSelector("table[id$='sectionTable'] .dataRow");
-    public static By inputSectionSelected = cssSelector("input[id$='inputParentSection'][type='text']");
-    public static By linkSectionSearch = cssSelector("a[id$='inputParentSection_lkwgt']");
-    public static By btnCopyExistingSection = cssSelector("input[id$='addExistingSection'][type='submit']");*/
-
-    //Search Look up window
-    public static By inputSearchLookup = cssSelector("#lksrch");
-    public static By searchedTblRows = cssSelector(".dataRow th a");
+    @FindBy(xpath = "//td[@id='j_id0:form:tabSections_lbl']")
+    WebElement sectionTab;
+    @FindBy(xpath = "//input[@class='btn'][contains(@id,'id0:form:createSection')]")
+    WebElement addSectionButton;
+    @FindBy(xpath = "//input[contains(@name,'id78')]")
+    WebElement sectionName;
+    @FindBy(xpath = "//input[contains(@name,'id78')]")
+    WebElement orderSection;
+    @FindBy(xpath = "//select[contains(@id,'id89')]")
+    WebElement displayStyle;
+    @FindBy(xpath = "//input[@value='SAVE']")
+    WebElement btnSaveSection;
+    @FindBy(xpath = "//div[contains(@class,'messageText')]")
+    WebElement successMessage;
+    @FindBy(xpath = "//input[@class='btn'][contains(@id,'id0:form:sectionBlock:sectionSection:sectionTable:0:deleteSection')]")
+    WebElement btndeleteSection;
     //============END Section================================================================
-
-
-    //------------------Screen: Linked questions---------------------------------------------------
-
-    //~~~~~~~~~~~Section: Header~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    public static By tblQuestions = cssSelector("table[id$='linkedQuestionsTable']");
-    public static By tblQuestionsRows = cssSelector("table[id$='linkedQuestionsTable'] .dataRow");
-
-    //~~~~~~~~~~~END: Section: Header~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     //~~~~~~~~~~~Section: Answer Options~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     public static By btnCreateAnswerOption= cssSelector("input[type='submit'][id$='createAnswerOption']");
