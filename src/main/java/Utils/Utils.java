@@ -31,6 +31,7 @@ public class Utils {
 
     //Webdriver Init
     protected static WebDriver driver = null;
+    public static String currentBrowser;
     protected Wait<WebDriver> wait = null;
     protected Wait<WebDriver> elementExistsWait = null;
     public String  mainHandle = null;
@@ -716,6 +717,34 @@ public class Utils {
             return driver.getCurrentUrl();
         } else
             return "";
+    }
+
+    /**
+     * <h1>Get Browser Data form Excel Sheet <h1/>
+     * <p>Purpose: This method is used to get test data.
+     * </p>
+     *
+     * @throws Exception
+     */
+    public synchronized static void GetBrowser() throws Exception {
+        try {
+            String FS = File.separator;
+            String testDataFilePath = "src" + FS + "test" + FS + "resources" + FS + "TestData" + FS + "UserData.xls";
+            File f = new File(testDataFilePath);
+            Connection connection = fillo.getConnection(f.getAbsolutePath());
+
+            String strQuery = String.format("Select * from Browser");
+            Recordset recordset = connection.executeQuery(strQuery);
+            while (recordset.next()) {
+                currentBrowser = recordset.getField("Browser");
+            }
+            recordset.close();
+            connection.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Log.info("Error in user test data reading");
+            throw new Exception(String.format("Browser Test data not found ->" + ex.getMessage()));
+        }
     }
 
 }
