@@ -8,14 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.*;
 
-public class CreateRequestTest {
-
-    WebDriver driver = new ChromeDriver();
-    LoginPage loginPage = new LoginPage(driver);
-    HomePage homePage = new HomePage(driver);
-    ListRequestsPage listRequestsPage = new ListRequestsPage(driver);
-    NewRequestPage newRequestPage = new NewRequestPage(driver);
-    SelectDocumentsPage selectDocumentsPage = new SelectDocumentsPage(driver);
+public class CreateRequestTest extends TestBase{
 
     @Test
     public void createNewRequest() throws Exception {
