@@ -10,14 +10,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 import pageObjects.BasePage;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -32,9 +30,46 @@ public class Utils {
     //Webdriver Init
     protected static WebDriver driver = null;
     public static String currentBrowser;
-    protected Wait<WebDriver> wait = null;
-    protected Wait<WebDriver> elementExistsWait = null;
+    private static String env;
+    private static FluentWait<WebDriver> wait;
+    private static FluentWait<WebDriver> elementExistsWait;
+//    protected Wait<WebDriver> wait = null;
+//    protected Wait<WebDriver> elementExistsWait = null;
     public String  mainHandle = null;
+
+    protected static final int WAIT_TIME = 30;
+    protected static final int POLL_INTERVAL = 2;
+    protected static final int IMPLICIT_WAIT_TIME = 8;
+    protected static final int ELEMENT_EXISTS_WAIT_TIME = 10;
+
+    public WebDriver getDriver() {
+        if (driver == null) {
+            try {
+                GetBrowser();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (currentBrowser.toLowerCase().contains("chrome")) {
+                driver = new ChromeDriver();
+            }
+        }
+        env = System.getProperty("run.env");
+
+        driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_TIME, TimeUnit.SECONDS);
+
+        wait = new FluentWait<>(driver)
+                .withTimeout(WAIT_TIME, TimeUnit.SECONDS)
+                .pollingEvery(POLL_INTERVAL, TimeUnit.SECONDS)
+                .ignoring(StaleElementReferenceException.class)
+                .ignoring(NoSuchElementException.class);
+
+        elementExistsWait = new FluentWait<>(driver)
+                .withTimeout(ELEMENT_EXISTS_WAIT_TIME, TimeUnit.SECONDS)
+                .pollingEvery(POLL_INTERVAL, TimeUnit.SECONDS)
+                .ignoring(StaleElementReferenceException.class)
+                .ignoring(NoSuchElementException.class);
+        return driver;
+    }
 
     public void getMainWindow(){
         mainHandle = driver.getWindowHandle();
@@ -746,5 +781,25 @@ public class Utils {
             throw new Exception(String.format("Browser Test data not found ->" + ex.getMessage()));
         }
     }
+
+    /**
+     * Method to copy file from src to dest
+     */
+    protected static void copyFileUsingStream(File source, File dest) throws IOException {
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            is = new FileInputStream(source);
+            os = new FileOutputStream(dest);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

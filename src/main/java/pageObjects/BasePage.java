@@ -133,56 +133,7 @@ public class BasePage extends Utils {
      * @param driver
      */
     public BasePage(WebDriver driver) {
-        if (driver == null) {
-            try {
-                GetBrowser();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (currentBrowser.toLowerCase().contains("chrome")) {
-                driver = new ChromeDriver();
-            }
-        }
-        this.driver = driver;
-        env = System.getProperty("run.env");
-
-        driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_TIME, TimeUnit.SECONDS);
-
-        wait = new FluentWait<>(driver)
-                .withTimeout(WAIT_TIME, TimeUnit.SECONDS)
-                .pollingEvery(POLL_INTERVAL, TimeUnit.SECONDS)
-                .ignoring(StaleElementReferenceException.class)
-                .ignoring(NoSuchElementException.class);
-
-        elementExistsWait = new FluentWait<>(driver)
-                .withTimeout(ELEMENT_EXISTS_WAIT_TIME, TimeUnit.SECONDS)
-                .pollingEvery(POLL_INTERVAL, TimeUnit.SECONDS)
-                .ignoring(StaleElementReferenceException.class)
-                .ignoring(NoSuchElementException.class);
-
-        PageFactory.initElements(driver, this);
-    }
-
-    /**
-     * Constructor to initialize WebDriver and FluentWait objects using specified
-     * wait time and poll interval. Also sets the implicit wait and initializes
-     * page elements using PageFactory.
-     *
-     * @param driver
-     */
-    public BasePage(WebDriver driver, int waitTime, int pollInterval) {
-
-        this.driver = driver;
-        env = System.getProperty("run.env");
-
-        driver.manage().timeouts().implicitlyWait(waitTime, TimeUnit.SECONDS);
-
-        wait = new FluentWait<WebDriver>(driver)
-                .withTimeout(waitTime, TimeUnit.SECONDS)
-                .pollingEvery(pollInterval, TimeUnit.SECONDS)
-                .ignoring(StaleElementReferenceException.class)
-                .ignoring(NoSuchElementException.class);
-
+        driver = getDriver();
         PageFactory.initElements(driver, this);
     }
 
