@@ -1,21 +1,17 @@
 package pageObjects;
 
 import Utils.Log;
+import Utils.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.*;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.*;
-import org.openqa.selenium.WebElement;
-import Utils.Utils;
-import org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.STXstringImpl;
 import org.testng.Assert;
 
-import java.util.*;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BasePage extends Utils {
 
