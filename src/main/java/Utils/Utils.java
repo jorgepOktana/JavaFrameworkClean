@@ -31,10 +31,8 @@ public class Utils {
     protected static WebDriver driver = null;
     public static String currentBrowser;
     private static String env;
-    private static FluentWait<WebDriver> wait;
-    private static FluentWait<WebDriver> elementExistsWait;
-//    protected Wait<WebDriver> wait = null;
-//    protected Wait<WebDriver> elementExistsWait = null;
+    protected Wait<WebDriver> wait = null;
+    protected Wait<WebDriver> elementExistsWait = null;
     public String  mainHandle = null;
 
     protected static final int WAIT_TIME = 30;
@@ -402,11 +400,9 @@ public class Utils {
     public static void enterText(WebElement editText, String text) {
         for (int i = 0; i < 2; i++) {
             try {
-//                waitUntilDisplayed(editText);
-//                    assertTrue(editText.isDisplayed());
+                waitUntilDisplayed(editText);
                 editText.clear();
                 editText.sendKeys(text);
-//                    getMobileDriver().hideKeyboard();
                 break;
             } catch (NoSuchElementException | StaleElementReferenceException e) {
                 System.out.println("Following exception thrown while entering text '" + text + "': " + e.getMessage());

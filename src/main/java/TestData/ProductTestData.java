@@ -1,7 +1,6 @@
 package TestData;
 
 import com.codoid.products.fillo.Recordset;
-import org.jsoup.Connection;
 import org.openqa.selenium.WebDriver;
 import pageObjects.BasePage;
 
