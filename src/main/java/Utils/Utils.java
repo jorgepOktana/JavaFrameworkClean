@@ -447,6 +447,30 @@ public class Utils {
                 waitUntilDisplayed(element);
                 try {
                     if (element.getText().toLowerCase().equals(text.toLowerCase())) {
+                        element.click();
+                        return true;
+                    }
+                } catch (NullPointerException e) {
+                    System.out.println("Null element within list, skip it");
+                } catch (WebDriverException e) {
+                    if (e.getMessage().toLowerCase().contains("not visible on the screen")) {
+                        element.click();
+                        System.out.println("Following exception thrown while clicking: " + e.getMessage());
+                    } else {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean clickFirstMatchingTextJS(List<WebElement> elements, String text) {
+        if (isNotEmpty(elements)) {
+            for (WebElement element : elements) {
+                waitUntilDisplayed(element);
+                try {
+                    if (element.getText().toLowerCase().equals(text.toLowerCase())) {
                         clickUsingJs(element);
                         return true;
                     }

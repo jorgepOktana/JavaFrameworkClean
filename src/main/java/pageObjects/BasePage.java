@@ -122,7 +122,7 @@ public class BasePage extends Utils {
     /**
      * Constructor to initialize WebDriver. Also initializes
      * page elements using PageFactory.
-     *
+     * <p>
      * remove the driver parameter
      */
     public BasePage() {
@@ -195,7 +195,7 @@ public class BasePage extends Utils {
         waitUntilDisplayed(allItemsSearch);
         enterText(allItemsSearch, Item.getValue());
 //        driver.switchTo().defaultContent();
-        Assert.assertTrue(clickFirstMatchingText(allItemsResult, Item.getValue()));
+        Assert.assertTrue(clickFirstMatchingTextJS(allItemsResult, Item.getValue()));
     }
 
     /**
@@ -256,7 +256,7 @@ public class BasePage extends Utils {
      *
      * @throws Exception
      */
-    public void switchToLightning() {
+    public void switchToLightning() {  //Not working as expected, when Org is on Classic, cases are failing
         try {
             waitForPageLoad();
             int size = userNavButton.size();

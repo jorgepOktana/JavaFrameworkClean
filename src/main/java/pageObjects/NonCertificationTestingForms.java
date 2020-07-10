@@ -1,15 +1,11 @@
 package pageObjects;
 
-import TestData.Users;
-import Utils.Log;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class CertificationTestingForm extends BasePage {
+public class NonCertificationTestingForms extends BasePage{
 
     @FindBy(xpath = "//a[@role='tab']")
     public List<WebElement> certificationTabs;
@@ -20,10 +16,13 @@ public class CertificationTestingForm extends BasePage {
     @FindBy(xpath = "//option[@ng-repeat='option in to.options track by option.id']")
     public List<WebElement> testingMilestoneOptions;
 
-    @FindBy(xpath = "//input[contains(@class,'slds-input ng-pristine ng-untouched ng-scope')]")
+    @FindBy(xpath = "(//input[@ng-if='!$root.isReadOnly(options)'])[1]")
+    public WebElement testRevisionPlan;
+
+    @FindBy(xpath = "(//input[@ng-if='!$root.isReadOnly(options)'])[2]")
     public WebElement sampleSize;
 
-    @FindBy(xpath = "//input[contains(@class,'slds-input ng-pristine ng-valid')]")
+    @FindBy(xpath = "(//input[@ng-if='!$root.isReadOnly(options)'])[3]")
     public WebElement sampleDescription;
 
     @FindBy(xpath = "//select[contains(@ng-if,'!vm.readOnly && vm.labs.length')]")
@@ -53,14 +52,17 @@ public class CertificationTestingForm extends BasePage {
     @FindBy(xpath = "//select[@placeholder='Select the Cost Center']//option")
     public List<WebElement> costCenterOptions;
 
-    @FindBy(xpath = "(//input[@type='number'])[2]")
+    @FindBy(xpath = "(//input[@type='number'])[1]")
     public WebElement testedLowerAge;
 
-    @FindBy(xpath = "(//input[@type='number'])[3]")
+    @FindBy(xpath = "(//input[@type='number'])[2]")
     public WebElement testedUpperAge;
 
-    @FindBy(xpath = "(//input[@type='text'])[3]")
+    @FindBy(xpath = "(//input[@type='text'])[4]")
     public WebElement otherTestedAge;
+
+    @FindBy(xpath = "//textarea[@ng-if='!$root.isReadOnly(options)']")
+    public WebElement overallQEComment;
 
     @FindBy(xpath = "//select[contains(@id,'category')]")
     public WebElement testCategoryPicklist;
@@ -68,11 +70,14 @@ public class CertificationTestingForm extends BasePage {
     @FindBy(xpath = "//select[contains(@id,'category')]//option")
     public List<WebElement> testCategoryOptions;
 
-    @FindBy(xpath = "//select[contains(@id,'class')]")
+//    @FindBy(xpath = "//select[contains(@id,'class')]")
+    @FindBy(xpath = "//input[@type='text'][contains(@id,'class')]")
     public WebElement testClassPicklist;
 
-    @FindBy(xpath = "//select[contains(@id,'class')]//option")
-    public List<WebElement> testClassOptions;
+//    @FindBy(xpath = "//select[contains(@id,'class')]//option")
+//    public List<WebElement> testClassOptions;
+    @FindBy(xpath = "//span[@role='option']")
+    public WebElement testClassResult;
 
     @FindBy(xpath = "//select[contains(@id,'test')]")
     public WebElement testNamePicklist;
@@ -83,27 +88,40 @@ public class CertificationTestingForm extends BasePage {
     @FindBy(xpath = "(//span[contains(.,'Add')])[4]")
     public WebElement addTestButton;
 
+    @FindBy(xpath = "//select[@ng-model='row[field]']")
+    public WebElement documentCategoryPicklist;
+
+    @FindBy(xpath = "//option[@ng-repeat='option in col.templateOptions.options track by option.id']")
+    public List<WebElement> documentCategoryOptions;
+
+    @FindBy(xpath = "//span[contains(.,'Upload File')]")
+    public WebElement uploadFileButton;
+
     @FindBy(xpath = "(//button[contains(.,'Previous')])[1]")
     public WebElement previousButton;
 
-    public CertificationTestingForm() {
-        super();
-    }
+    @FindBy(xpath = "//label[contains(@class,'block')]")
+    public WebElement uploadFromDesktopButton;
 
-    public void setTestingMilestone(String milestone){
-        clickElement(testingMilestonePicklist, false, false );
+    public void setTestingMilestone(String milestone) {
+        clickButton(testingMilestonePicklist);
         waitForElemToBeClickable(testingMilestoneOptions.get(0));
         clickFirstContainsText(testingMilestoneOptions, milestone);
     }
 
+    public void setTestRevisionPlan(String revisionPlan){
+//        clickElement(testRevisionPlan, false, false);
+        enterText(testRevisionPlan, revisionPlan);
+    }
+
     public void setSampleSize(String size){
         waitForElemToBeClickable(sampleSize);
-        clickElement(sampleSize, false, false);
+//        clickElement(sampleSize, false, false);
         enterText(sampleSize, size);
     }
 
     public void setSampleDescription(String description) {
-        clickElement(sampleDescription, false, true);
+//        clickElement(sampleDescription, false, true);
         enterText(sampleDescription, description);
     }
 
@@ -113,24 +131,11 @@ public class CertificationTestingForm extends BasePage {
         clickFirstContainsText(testingLabOptions, lab);
     }
 
-    public void goToTab(String tabName){
-        waitUntilDisplayed(certificationTabs.get(0));
-        clickFirstMatchingText(certificationTabs, tabName);
-    }
-
-    public void goToTestRequestOverviewtab(){
-        goToTab(formRequestOverviewTab);
-    }
-    public void goToTestResultTab() {
-        goToTab(formResultsTab);
-    }
-
     public void setCostCenter(String costCenter) {
         waitUntilDisplayed(costCenterPicklist);
         clickButton(costCenterPicklist);
         waitUntilDisplayed(costCenterOptions.get(0));
         clickFirstContainsText(costCenterOptions, costCenter);
-//        clickFirstMatchingText(costCenterOptions, costCenter);
     }
 
     public void addTestToForm(String category, String testClass, String testName) {
@@ -144,15 +149,18 @@ public class CertificationTestingForm extends BasePage {
         waitUntilDisplayed(testCategoryPicklist);
         clickButton(testCategoryPicklist);
         waitUntilDisplayed(testCategoryOptions.get(0));
-        clickFirstContainsText(testCategoryOptions, category);
+        clickFirstMatchingText(testCategoryOptions, category);
         sleepSeconds(5);
     }
 
+    /**
+     * This method is not working as expected. testClassResult is not being selected.
+     */
     public void setTestClass(String testClass) {
-        waitUntilDisplayed(testClassPicklist);
-        clickButton(testClassPicklist);
-        waitUntilDisplayed(testClassOptions.get(0));
-        clickFirstMatchingText(testClassOptions, testClass);
+        enterText(testClassPicklist, testClass);
+        clickButton(testClassResult);
+//        waitUntilDisplayed(testClassOptions.get(0));
+//        clickFirstMatchingText(testClassOptions, testClass);
         sleepSeconds(5);
     }
 
@@ -164,10 +172,22 @@ public class CertificationTestingForm extends BasePage {
         sleepSeconds(5);
     }
 
-    public void setMultipleTest(ArrayList<certificationTests> multipleTests){
-        for (certificationTests test: multipleTests) {
-                addTestToForm(test.getTestCategory(), test.getTestClass(), test.getTestName());
-            }
+    public void setDocumentCategory(String documentCategory) {
+        waitUntilDisplayed(documentCategoryPicklist);
+        clickElement(documentCategoryPicklist, false, false);
+        waitUntilDisplayed(documentCategoryOptions.get(0));
+        clickFirstContainsText(documentCategoryOptions, documentCategory);
+    }
+
+    /**
+     * This method is not working, need to find a way to do the upload file for non-certs
+     */
+    public void uploadFile() {
+        clickButton(uploadFileButton);
+        String fileToUpload = "/Users/jorgeperozo/Desktop/a1.png";
+        waitUntilDisplayed(uploadFromDesktopButton);
+        uploadFromDesktopButton.sendKeys(fileToUpload);
+//        enterText(uploadFromDesktopButton, fileToUpload);
     }
 
     public void clickAddButton() {
@@ -185,19 +205,39 @@ public class CertificationTestingForm extends BasePage {
         clickButton(buttonSave);
     }
 
-    public void fillCertificationTestingProgram() {
-        setTestingMilestone("QN - Others");
-        setSampleSize("AutoQA");
-        setTestingLab("KUl_LAB01");
+    public void fillNonCertNonQNCertification(){
+        setTestingMilestone("VSP - Vendor Sample Pilot");
+        setTestRevisionPlan("QA Revision Plan");
+        setSampleSize("123");
+        setSampleDescription("Sample Description");
+        setTestingLab("Hasbro Factory-Lab");
         clickNextButton();
-        waitForPageLoad();
         setCostCenter("Other - N/A");
-        setTestCategory("AU");
+        setTestCategory("Transit Test");
+        setTestClass("Package");
         clickAddButton();
-        setTestCategory("CA");
-        clickAddButton();
+//        setDocumentCategory("Test Plan Attachment");
+//        uploadFile();
+        sleepSeconds(5);
         clickSaveButton();
         sleepSeconds(5);
     }
 
+    public void fillNonCertQNCertification(){
+        setTestingMilestone("QN - First QN (new tool)");
+        setTestRevisionPlan("QA Revision Plan");
+        setSampleSize("123");
+        setSampleDescription("Sample Description");
+        setTestingLab("KUl_LAB01");
+        clickNextButton();
+        setCostCenter("Other - N/A");
+        setTestCategory("Transit Test");
+        setTestClass("Package");
+        clickAddButton();
+//        setDocumentCategory("Test Plan Attachment");
+//        uploadFile();
+        sleepSeconds(5);
+        clickSaveButton();
+        sleepSeconds(5);
+    }
 }

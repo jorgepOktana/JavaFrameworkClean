@@ -36,16 +36,26 @@ public class CreateRequestTest extends TestBase{
         listRequestsPage.clickNewRequest();
         newRequestPage.switchToRequestFrame();
         newRequestPage.enterRequestName("This is a test request");
+        Assert.assertTrue(newRequestPage.setRequestTypeAndSearch("Product", "QA-41 Jorge Product - Test"));
 //        newRequestPage.enterRequestName(RequestTestData.getRequestName());
 //        Assert.assertTrue(newRequestPage.setRequestTypeAndSearch(RequestTestData.getRequestType(),RequestTestData.getTpOrPrdctName()));
-        Assert.assertTrue(newRequestPage.setRequestTypeAndSearch("Product", "QA-41 Jorge Product - Test"));
     }
 
+    /**
+     * This will attach the 3 documents for Hasbro
+     */
     private void attachDocuments() {
-        newRequestPage.clickSelectDocumentBtn();
-        selectDocumentsPage.attachDocumentForm("Product Test", "Certification Testing Program");
 //        selectDocumentsPage.attachDocumentForm(RequestTestData.getDocCategory(), RequestTestData.getDocName());
 //        selectDocumentsPage.addRelatedRequest(true, "");
+//        selectDocumentsPage.clickSave();
+        newRequestPage.clickSelectDocumentBtn();
+        selectDocumentsPage.attachDocumentForm("Product Test", "Certification Testing Program");
+        selectDocumentsPage.clickSave();
+        newRequestPage.clickSelectDocumentBtn();
+        selectDocumentsPage.attachDocumentForm("Product Test", "Non-Certification Non QN Testing Program");
+        selectDocumentsPage.clickSave();
+        newRequestPage.clickSelectDocumentBtn();
+        selectDocumentsPage.attachDocumentForm("Product Test", "Non-Certification QN Testing Program");
         selectDocumentsPage.clickSave();
     }
 
@@ -56,6 +66,20 @@ public class CreateRequestTest extends TestBase{
                 clickElement(form, false, true);
                 switchToLastWindow();
                 certificationTestingForm.fillCertificationTestingProgram();
+                driver.close();
+                switchToMainWindow();
+                newRequestPage.switchToRequestFrame();
+            } else if (form.getText().equals("Non-Certification Non QN Testing Program")){
+                clickElement(form, false, true);
+                switchToLastWindow();
+                nonCertificationTestingForm.fillNonCertNonQNCertification();
+                driver.close();
+                switchToMainWindow();
+                newRequestPage.switchToRequestFrame();
+            } else if (form.getText().equals("Non-Certification QN Testing Program")){
+                clickElement(form, false, true);
+                switchToLastWindow();
+                nonCertificationTestingForm.fillNonCertQNCertification();
                 driver.close();
                 switchToMainWindow();
                 newRequestPage.switchToRequestFrame();

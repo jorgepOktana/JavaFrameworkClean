@@ -1,5 +1,4 @@
 import Utils.Utils;
-import org.apache.logging.log4j.core.util.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
@@ -21,6 +20,7 @@ public class TestBase extends Utils {
     NewRequestPage newRequestPage;
     SelectDocumentsPage selectDocumentsPage;
     CertificationTestingForm certificationTestingForm;
+    NonCertificationTestingForms nonCertificationTestingForm;
 
     @BeforeClass
     public void initPages (){
@@ -30,6 +30,7 @@ public class TestBase extends Utils {
         newRequestPage = new NewRequestPage();
         selectDocumentsPage = new SelectDocumentsPage();
         certificationTestingForm = new CertificationTestingForm();
+        nonCertificationTestingForm = new NonCertificationTestingForms();
     }
 
     @AfterClass
