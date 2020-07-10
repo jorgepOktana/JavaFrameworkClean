@@ -19,8 +19,8 @@ public class FormTestData extends BasePage {
     List<Section> Sections = new ArrayList<>();
     List<LinkedQuestion> LinkedQuestions = new ArrayList<>();
 
-    public FormTestData(WebDriver driver) {
-        super(driver);
+    public FormTestData() {
+        super();
     }
 
 
@@ -94,7 +94,7 @@ public class FormTestData extends BasePage {
     private synchronized FormTestData GetFormTestData(String testId) throws Exception {
         Fillo fillo = new Fillo();
         try {
-            FormTestData formTestData = new FormTestData(driver);
+            FormTestData formTestData = new FormTestData();
             String FS = File.separator;
             String testDataFilePath = "src" + FS + "test" + FS + "resources" + FS + "TestData" + FS + "FormBuilder_TestData.xlsx";
             File f = new File(testDataFilePath);

@@ -20,8 +20,8 @@ public class RequestTestData extends BasePage {
     //Get Testdata from excel file
     private static String RequestName, RequestType, TpOrPrdctName, DocCategory, DocName, Comment, ApproveOrRejectComments, WorkflowStatus;
 
-    public RequestTestData(WebDriver driver) {
-        super(driver);
+    public RequestTestData() {
+        super();
     }
 
     public static String getRequestName() {

@@ -8,8 +8,8 @@ import java.util.Map;
 
 public class Users extends BasePage {
 
-    public Users(WebDriver driver) {
-        super(driver);
+    public Users() {
+        super();
     }
 
     //All user almost similar as defined in excel

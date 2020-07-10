@@ -123,11 +123,10 @@ public class BasePage extends Utils {
      * Constructor to initialize WebDriver. Also initializes
      * page elements using PageFactory.
      *
-     * @param driver
      * remove the driver parameter
      */
-    public BasePage(WebDriver driver) {
-        driver = getDriver();
+    public BasePage() {
+        WebDriver driver = getDriver();
         PageFactory.initElements(driver, this);
     }
 

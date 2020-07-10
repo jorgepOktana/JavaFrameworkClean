@@ -8,8 +8,8 @@ import java.util.List;
 
 public class SelectDocumentsPage extends BasePage {
 
-    public SelectDocumentsPage(WebDriver driver) {
-        super(driver);
+    public SelectDocumentsPage() {
+        super();
     }
 
     //This returns a list of document categories (All, Audit, Product Spec, Form, Incident, Recall, Product Test

@@ -25,8 +25,8 @@ public class LoginPage extends BasePage{
 	@FindBy(id = "header")
 	public WebElement header;
 
-	public LoginPage(WebDriver driver) {
-		super(driver);
+	public LoginPage() {
+		super();
 	}
 
 	public boolean isCurrentPage(){

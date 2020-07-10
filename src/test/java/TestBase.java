@@ -24,12 +24,12 @@ public class TestBase extends Utils {
 
     @BeforeClass
     public void initPages (){
-        loginPage = new LoginPage(driver);
-        homePage = new HomePage(driver);
-        listRequestsPage = new ListRequestsPage(driver);
-        newRequestPage = new NewRequestPage(driver);
-        selectDocumentsPage = new SelectDocumentsPage(driver);
-        certificationTestingForm = new CertificationTestingForm(driver);
+        loginPage = new LoginPage();
+        homePage = new HomePage();
+        listRequestsPage = new ListRequestsPage();
+        newRequestPage = new NewRequestPage();
+        selectDocumentsPage = new SelectDocumentsPage();
+        certificationTestingForm = new CertificationTestingForm();
     }
 
     @AfterClass

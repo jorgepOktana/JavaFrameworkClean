@@ -5,8 +5,8 @@ import org.openqa.selenium.WebDriver;
 
 public class ListRequestsPage extends BasePage {
 
-    public ListRequestsPage(WebDriver driver) {
-        super(driver);
+    public ListRequestsPage() {
+        super();
     }
 
     public boolean isCurrentPage() {

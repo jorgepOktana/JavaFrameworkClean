@@ -11,8 +11,8 @@ public class LoginTest {
     String baseUrl = "https://login.salesforce.com";
 
     private WebDriver driver = new ChromeDriver();
-    private LoginPage loginPage = new LoginPage(driver);
-    private HomePage homePage = new HomePage(driver);
+    private LoginPage loginPage = new LoginPage();
+    private HomePage homePage = new HomePage();
 
     @Test
     public void loginTest() throws Exception {

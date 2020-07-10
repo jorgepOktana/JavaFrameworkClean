@@ -14,8 +14,8 @@ public class NewRequestPage extends BasePage {
      * elements we probably need to move to the iframe (iframe is on BasePage)
      */
 
-    public NewRequestPage(WebDriver driver) {
-        super(driver);
+    public NewRequestPage() {
+        super();
     }
 
     @FindBy(xpath = "//h1[@class='slds-page-header__title slds-p-right--x-small ng-binding']")

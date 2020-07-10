@@ -88,8 +88,8 @@ public class CertificationTestingForm extends BasePage {
     @FindBy(xpath = "(//button[contains(.,'Previous')])[1]")
     public WebElement previousButton;
 
-    public CertificationTestingForm(WebDriver driver) {
-        super(driver);
+    public CertificationTestingForm() {
+        super();
     }
 
     public void setTestingMilestone(String milestone){
