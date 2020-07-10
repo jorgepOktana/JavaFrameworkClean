@@ -19,8 +19,8 @@ public class ThreeActorTestData extends BasePage {
 
     public static Map<String,String> requestGroupId = new HashMap<>();
 
-    public ThreeActorTestData(WebDriver driver) {
-        super(driver);
+    public ThreeActorTestData() {
+        super();
     }
 
     public String getDefectiveSize() {

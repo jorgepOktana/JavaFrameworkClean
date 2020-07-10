@@ -33,13 +33,22 @@ public class Utils {
     private static String env;
     protected Wait<WebDriver> wait = null;
     protected Wait<WebDriver> elementExistsWait = null;
-    public String  mainHandle = null;
+    public String mainHandle = null;
+
+    String currentTabHandle;
+    String newTabHandle;
 
     protected static final int WAIT_TIME = 30;
     protected static final int POLL_INTERVAL = 2;
     protected static final int IMPLICIT_WAIT_TIME = 8;
     protected static final int ELEMENT_EXISTS_WAIT_TIME = 10;
 
+    /**
+     * Initialize WebDriver and FluentWait objects using default
+     * wait time and poll interval. Also sets the implicit wait and initializes
+     * page elements using PageFactory.
+     *
+     */
     public WebDriver getDriver() {
         if (driver == null) {
             try {
@@ -70,7 +79,7 @@ public class Utils {
     }
 
     public void getMainWindow(){
-        mainHandle = driver.getWindowHandle();
+        currentTabHandle = driver.getWindowHandle();
     }
 
     public String setCurrentWindow(){
@@ -86,6 +95,22 @@ public class Utils {
         }
 
     }
+
+    public void switchToLastWindow() {
+        sleepSeconds(10);
+        newTabHandle = driver.getWindowHandles()
+                .stream()
+                .filter(handle -> !handle.equals(currentTabHandle ))
+                .findFirst()
+                .get();
+        driver.switchTo().window(newTabHandle);
+    }
+
+    public void switchToMainWindow() {
+        sleepSeconds(5);
+        driver.switchTo().window(currentTabHandle);
+    }
+
 
     /**
      * Common method to wait for visibility of all elements specified.
@@ -370,7 +395,7 @@ public class Utils {
                 if (scrollToClick && !(webElement.isDisplayed())) {
                     // Scroll to make the element visible
                     ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", webElement);
-                    sleepSeconds(Time.MINIMUM.getValue());
+                    sleepSeconds(Time.AVERAGE.getValue());
                 }
                 waitUntilDisplayed(webElement);
 //                clickUsingJs(webElement);
@@ -422,6 +447,30 @@ public class Utils {
                 waitUntilDisplayed(element);
                 try {
                     if (element.getText().toLowerCase().equals(text.toLowerCase())) {
+                        element.click();
+                        return true;
+                    }
+                } catch (NullPointerException e) {
+                    System.out.println("Null element within list, skip it");
+                } catch (WebDriverException e) {
+                    if (e.getMessage().toLowerCase().contains("not visible on the screen")) {
+                        element.click();
+                        System.out.println("Following exception thrown while clicking: " + e.getMessage());
+                    } else {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean clickFirstMatchingTextJS(List<WebElement> elements, String text) {
+        if (isNotEmpty(elements)) {
+            for (WebElement element : elements) {
+                waitUntilDisplayed(element);
+                try {
+                    if (element.getText().toLowerCase().equals(text.toLowerCase())) {
                         clickUsingJs(element);
                         return true;
                     }
@@ -451,6 +500,7 @@ public class Utils {
                 if (element.getText() == null || element.getText().isEmpty()) {
                     continue;
                 } else if (element.getText().toLowerCase().contains(text.toLowerCase())) {
+//                    clickUsingJs(element);
                     element.click();
                     return true;
                 }

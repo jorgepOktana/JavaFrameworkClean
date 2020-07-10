@@ -8,8 +8,8 @@ public class SalesforceSetupPage extends BasePage{
 	public static final String SEARCH_BOX_CSS = "[class*='onesetupSetupNavTree'] input";
 	public static final String SEARCH_RESULT_CSS = "mark";
 
-	public SalesforceSetupPage(WebDriver driver) {
-		super(driver);
+	public SalesforceSetupPage() {
+		super();
 	}
 
 }

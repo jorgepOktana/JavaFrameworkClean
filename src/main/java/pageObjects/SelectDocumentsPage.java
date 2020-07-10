@@ -8,8 +8,8 @@ import java.util.List;
 
 public class SelectDocumentsPage extends BasePage {
 
-    public SelectDocumentsPage(WebDriver driver) {
-        super(driver);
+    public SelectDocumentsPage() {
+        super();
     }
 
     //This returns a list of document categories (All, Audit, Product Spec, Form, Incident, Recall, Product Test
@@ -62,7 +62,7 @@ public class SelectDocumentsPage extends BasePage {
 
     public void selectDocumentForm(String document){
         waitUntilDisplayed(documentList.get(0));
-        clickFirstMatchingText(documentList, document);
+        clickFirstMatchingTextJS(documentList, document);
     }
 
     public void clickAttach(){
@@ -76,6 +76,7 @@ public class SelectDocumentsPage extends BasePage {
      *
      * @param document
      * @param category
+     * can be updated to pass a list of documents? so we dont need to do the whole process adding one by one ??
      */
     public void attachDocumentForm(String category, String document){
 //        switchToIFrame();

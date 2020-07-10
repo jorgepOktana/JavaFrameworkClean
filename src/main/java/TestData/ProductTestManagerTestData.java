@@ -36,8 +36,8 @@ public class ProductTestManagerTestData extends BasePage {
     private String Message = "";
     private String CreateCustomCertificate;
 
-    public ProductTestManagerTestData(WebDriver driver) {
-        super(driver);
+    public ProductTestManagerTestData() {
+        super();
     }
 
     @Override
@@ -263,7 +263,7 @@ public class ProductTestManagerTestData extends BasePage {
 
     public ProductTestManagerTestData GetData_Dynamic(String testId) throws Exception {
         Fillo fillo = new Fillo();
-        ProductTestManagerTestData productTestManagerTestData = new ProductTestManagerTestData(driver);
+        ProductTestManagerTestData productTestManagerTestData = new ProductTestManagerTestData();
         try {
             String FS = File.separator;
             String testDataFilePath = "src" + FS + "test" + FS + "resources" + FS + "TestData" + FS + "TestProgram_TestData.xlsx";

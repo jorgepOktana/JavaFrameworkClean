@@ -26,7 +26,7 @@ public class ProcessBuilderTest {
     private WebDriver doLogin() throws Exception {
         WebDriver driver = new ChromeDriver();
 
-        LoginPage loginPage = new LoginPage(driver);
+        LoginPage loginPage = new LoginPage();
         loginPage.navigateToPage(baseUrl);
 //        loginPage.loginAs(Requestor_Admin);
         loginPage.LoginUser("username", "password");

@@ -61,7 +61,7 @@ public class GlobalTestData extends BasePage {
     public static Map<String, Set<String>> testCoverageMap = new HashMap<>();
 
     public GlobalTestData(WebDriver driver) {
-        super(driver);
+        super();
     }
 
 //    public static Set<String> getCoverageIds(String key) {

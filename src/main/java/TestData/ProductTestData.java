@@ -20,7 +20,7 @@ public class ProductTestData extends BasePage {
             PrivacySettings, RelationshipAttribute, RelationshipAttributeValuesForCountry, AttributeTypeFromFilter, EnterNewTagName;
 
     public ProductTestData(WebDriver driver) {
-        super(driver);
+        super();
     }
 
     public String getTpNameToSearchProduct() {
