@@ -10,6 +10,6 @@
 *.mvn
 mvnw.cmd
 mvnw.*
-ExecutionReports
-
+ExecutionReports/*
+Screenshots/*
 

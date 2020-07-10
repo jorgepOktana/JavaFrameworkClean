@@ -1,9 +1,7 @@
 import TestData.RequestTestData;
 import TestData.Users;
 import Utils.Log;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.*;
@@ -15,6 +13,7 @@ public class CreateRequestTest extends TestBase{
         beforeTest();
         populateRequest();
         attachDocuments();
+        fillAttachedForms();
         setDueDate();
         setComments();
         saveRequest();
@@ -36,24 +35,35 @@ public class CreateRequestTest extends TestBase{
     private void populateRequest() {
         listRequestsPage.clickNewRequest();
         newRequestPage.switchToRequestFrame();
-//        newRequestPage.enterRequestName("This is a test request");
-        newRequestPage.enterRequestName(RequestTestData.getRequestName());
-        Assert.assertTrue(newRequestPage.setRequestTypeAndSearch(RequestTestData.getRequestType(),RequestTestData.getTpOrPrdctName()));
-//        Assert.assertTrue(newRequestPage.setRequestTypeAndSearch("Product", "QA-41 Jorge Product - Test"));
-
-        //Need to discuss if this is the best approach to get testData (testId is required so far)
+        newRequestPage.enterRequestName("This is a test request");
 //        newRequestPage.enterRequestName(RequestTestData.getRequestName());
-//        newRequestPage.setRequestTypeAndSearch(RequestTestData.getRequestType(),RequestTestData.getTpOrPrdctName());
-
+//        Assert.assertTrue(newRequestPage.setRequestTypeAndSearch(RequestTestData.getRequestType(),RequestTestData.getTpOrPrdctName()));
+        Assert.assertTrue(newRequestPage.setRequestTypeAndSearch("Product", "QA-41 Jorge Product - Test"));
     }
 
     private void attachDocuments() {
         newRequestPage.clickSelectDocumentBtn();
-//        selectDocumentsPage.attachDocumentForm("Form", "test");
-        selectDocumentsPage.attachDocumentForm(RequestTestData.getDocCategory(), RequestTestData.getDocName());
+        selectDocumentsPage.attachDocumentForm("Product Test", "Certification Testing Program");
+//        selectDocumentsPage.attachDocumentForm(RequestTestData.getDocCategory(), RequestTestData.getDocName());
 //        selectDocumentsPage.addRelatedRequest(true, "");
         selectDocumentsPage.clickSave();
     }
+
+    private void fillAttachedForms() throws InterruptedException {
+        getMainWindow();
+        for (WebElement form: newRequestPage.selectedDocumentsList) {
+            if(form.getText().equals("Certification Testing Program")){
+                clickElement(form, false, true);
+                switchToLastWindow();
+                certificationTestingForm.fillCertificationTestingProgram();
+                driver.close();
+                switchToMainWindow();
+                newRequestPage.switchToRequestFrame();
+            }
+        }
+    }
+
+
 
     private void setDueDate() {
         newRequestPage.setDueDateNextMonth();

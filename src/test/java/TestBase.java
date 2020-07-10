@@ -20,6 +20,7 @@ public class TestBase extends Utils {
     ListRequestsPage listRequestsPage;
     NewRequestPage newRequestPage;
     SelectDocumentsPage selectDocumentsPage;
+    CertificationTestingForm certificationTestingForm;
 
     @BeforeClass
     public void initPages (){
@@ -28,6 +29,7 @@ public class TestBase extends Utils {
         listRequestsPage = new ListRequestsPage(driver);
         newRequestPage = new NewRequestPage(driver);
         selectDocumentsPage = new SelectDocumentsPage(driver);
+        certificationTestingForm = new CertificationTestingForm(driver);
     }
 
     @AfterClass

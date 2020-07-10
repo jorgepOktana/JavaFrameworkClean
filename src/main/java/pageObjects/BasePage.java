@@ -19,11 +19,6 @@ public class BasePage extends Utils {
 
     public static String baseUrl = "https://login.salesforce.com";
 
-    protected static final int WAIT_TIME = 30;
-    protected static final int POLL_INTERVAL = 2;
-    protected static final int IMPLICIT_WAIT_TIME = 8;
-    protected static final int ELEMENT_EXISTS_WAIT_TIME = 10;
-
     private boolean isLogin = false;
     private String currentLoginUser = "NA";
 
@@ -31,6 +26,9 @@ public class BasePage extends Utils {
     public String currentProduct = null;
     public String currentTradingPartner = null;
     public String currentRequestType = null;
+
+    public String formRequestOverviewTab = "TEST REQUEST OVERVIEW";
+    public String formResultsTab = "TEST RESULTS";
 
     public void navigateToPage(String pageURL) {
         driver.get(pageURL);
@@ -122,11 +120,11 @@ public class BasePage extends Utils {
     public WebElement toastMessage;
 
     /**
-     * Constructor to initialize WebDriver and FluentWait objects using default
-     * wait time and poll interval. Also sets the implicit wait and initializes
+     * Constructor to initialize WebDriver. Also initializes
      * page elements using PageFactory.
      *
      * @param driver
+     * remove the driver parameter
      */
     public BasePage(WebDriver driver) {
         driver = getDriver();
@@ -153,6 +151,36 @@ public class BasePage extends Utils {
             return this.value;
         }
 
+    }
+
+    public class certificationTests {
+        String testCategory;
+        String testClass;
+        String testName;
+
+        public String getTestCategory() {
+            return testCategory;
+        }
+
+        public void setTestCategory(String testCategory) {
+            this.testCategory = testCategory;
+        }
+
+        public String getTestClass() {
+            return testClass;
+        }
+
+        public void setTestClass(String testClass) {
+            this.testClass = testClass;
+        }
+
+        public String getTestName() {
+            return testName;
+        }
+
+        public void setTestName(String testName) {
+            this.testName = testName;
+        }
     }
 
     /**
