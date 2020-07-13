@@ -44,6 +44,6 @@ public class IcixProductsPage {
     @FindBy(xpath = "(//span[contains(.,'Cancel')])[4]")
     WebElement btnClose;
 
-    //===========END-Form Menu bar==============================================
+    //===========END-New Product==============================================
 
 }
