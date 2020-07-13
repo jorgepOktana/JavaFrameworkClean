@@ -14,11 +14,11 @@ public class ProductSearchPage {
     WebElement productSearch;
     @FindBy(xpath = "//button[contains(.,'Search by Trading Partner')]")
     WebElement btnTP;
-    @FindBy(xpath = "//select[contains(@data-aura-rendered-by,'637:0')]")
+    @FindBy(xpath = "(//select[contains(@class,'slds-select')])[1]")
     WebElement tpType;
-    @FindBy(xpath = "//select[contains(@data-aura-rendered-by,'656:0')]")
+    @FindBy(xpath = "(//select[contains(@class,'slds-select')])[2]")
     WebElement facilityName;
-    @FindBy(xpath = "//button[contains(@data-aura-rendered-by,'639:0')]")
+    @FindBy(xpath = "(//button[contains(.,'Search')])[4]")
     WebElement btnSearch;
 
     //===========END Trading Partnerr==============================================
@@ -27,7 +27,7 @@ public class ProductSearchPage {
 
     @FindBy(xpath = "//button[contains(.,'Search by Product Name')]")
     WebElement btnProductName;
-    @FindBy(xpath = "//select[contains(@data-aura-rendered-by,'713:0')]")
+    @FindBy(xpath = "(//button[contains(.,'Search')])[4]")
     WebElement btnTpType;
     @FindBy(xpath = "//input[contains(@placeholder,'Search your Products Here')]")
     WebElement prodSearchBox;
@@ -41,13 +41,13 @@ public class ProductSearchPage {
     //-----------Search by Attributes -----------------------------------------
     @FindBy(xpath = "//button[contains(.,'Search by Attributes')]")
     WebElement btnAttributes;
-    @FindBy(xpath = "//select[contains(@data-aura-rendered-by,'798:0')]")
+    @FindBy(xpath = "(//select[contains(@class,'slds-select')])[4]")
     WebElement selectTpType;
-    @FindBy(xpath = "//select[contains(@data-aura-rendered-by,'842:0')]")
+    @FindBy(xpath = "(//select[contains(@class,'slds-select')])[5]")
     WebElement selectAttribute;
     @FindBy(xpath = "//input[contains(@placeholder,'Search your Attribute')]")
     WebElement btnsearchAtt;
-    @FindBy(xpath = "//button[contains(@data-aura-rendered-by,'859:0')]")
+    @FindBy(xpath = "(//button[contains(@title,'Search Products')])[3]")
     WebElement btnAttributesSearch;
 
     //===========END-Search by Attributes======================================
@@ -55,17 +55,17 @@ public class ProductSearchPage {
     //-----------Mass QE Assignment -----------------------------------------
     @FindBy(xpath = "//button[contains(.,'Mass QE Assignment')]")
     WebElement btnMassQE;
-    @FindBy(xpath = "//select[contains(@data-aura-rendered-by,'912:0')]")
+    @FindBy(xpath = "(//select[contains(@class,'slds-select')])[6]")
     WebElement facility;
-    @FindBy(xpath = "//select[contains(@data-aura-rendered-by,'934:0')]")
+    @FindBy(xpath = "(//select[contains(@class,'slds-select')])[7]")
     WebElement attribute;
-    @FindBy(xpath = "//button[contains(@data-aura-rendered-by,'947:0')]")
+    @FindBy(xpath = "(//button[@title='Search Products'])[4]")
     WebElement search;
     @FindBy(xpath = "//input[@placeholder='Search your Global SKU']")
     WebElement globalSKU;
     @FindBy(xpath = "//input[@placeholder='Search your Parent Number']")
     WebElement parentNumber;
-    @FindBy(xpath = "//select[contains(@data-aura-rendered-by,'990:0')]")
+    @FindBy(xpath = "(//select[contains(@class,'slds-select')])[8]")
     WebElement resQE;
     @FindBy(xpath = "//button[contains(.,'Add/Update Responsible QE')]")
     WebElement addQE;
