@@ -71,3 +71,5 @@ public class ProductSearchPage {
     WebElement addQE;
 
     //===========END-Search by Attributes======================================
+
+}
