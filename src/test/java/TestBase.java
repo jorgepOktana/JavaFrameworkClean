@@ -1,3 +1,4 @@
+import TestData.Users;
 import Utils.Utils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -21,6 +22,9 @@ public class TestBase extends Utils {
     SelectDocumentsPage selectDocumentsPage;
     CertificationTestingForm certificationTestingForm;
     NonCertificationTestingForms nonCertificationTestingForm;
+    RequestPage requestPage;
+
+    String currentTaskID = null;
 
     @BeforeClass
     public void initPages (){
@@ -31,6 +35,16 @@ public class TestBase extends Utils {
         selectDocumentsPage = new SelectDocumentsPage();
         certificationTestingForm = new CertificationTestingForm();
         nonCertificationTestingForm = new NonCertificationTestingForms();
+        requestPage = new RequestPage();
+    }
+
+    public void loginAs(Users.TYPE user) throws Exception {
+        loginPage.loginAs(user);
+        Assert.assertTrue(homePage.isCurrentPage());
+    }
+
+    public void goToRequests() throws Exception {
+        homePage.clickAppLauncherItem(BasePage.AppLauncherItems.REQUESTS);
     }
 
     @AfterClass
