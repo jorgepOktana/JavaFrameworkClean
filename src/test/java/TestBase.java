@@ -23,6 +23,8 @@ public class TestBase extends Utils {
     CertificationTestingForm certificationTestingForm;
     NonCertificationTestingForms nonCertificationTestingForm;
     RequestPage requestPage;
+    IcixProductsPage productPage;
+    IcixTaskPage taskPage;
 
     String currentTaskID = null;
 
@@ -36,6 +38,8 @@ public class TestBase extends Utils {
         certificationTestingForm = new CertificationTestingForm();
         nonCertificationTestingForm = new NonCertificationTestingForms();
         requestPage = new RequestPage();
+        productPage = new IcixProductsPage();
+        taskPage = new IcixTaskPage();
     }
 
     public void loginAs(Users.TYPE user) throws Exception {
@@ -46,6 +50,11 @@ public class TestBase extends Utils {
     public void goToRequests() throws Exception {
         homePage.clickAppLauncherItem(BasePage.AppLauncherItems.REQUESTS);
     }
+
+    public void goToProducts() throws Exception {
+        homePage.clickAppLauncherItem(BasePage.AppLauncherItems.ICIX_PRODUCT);
+    }
+
 
     @AfterClass
     public void closeBrowser() throws Exception {
@@ -93,6 +102,5 @@ public class TestBase extends Utils {
         }
     }
 
-    public void createProduct
 
 }

@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ICIX" />
+        <module name="ICIX-Clean-V1" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ICIX-Clean-V1" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
