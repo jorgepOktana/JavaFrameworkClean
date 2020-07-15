@@ -9,37 +9,85 @@ import pageObjects.*;
 public class CreateRequestTest extends TestBase{
 
     /**
-     * End to End test.
+     * TO-DO: need to be able to create Products via API to insert this product before running the test.
+     * This below is just a test product.
+     */
+    String productName = "JAG1ASSORTMENT_HASBRO_12Mar - Test";
+
+    /**
      * Preconditions: we have already created a Product and there are reviewers/labs associated to our requestor org.
      * In this scenario we create 1 request for an Assortment product with at least 1 retail associated (so 2 requests are created).
      * Certification Testing Program form is selected.
      * @throws Exception
      */
     @Test
-    public void createNewRequest() throws Exception {
+    public void createRequestForAssortmentWithRetailCertification() throws Exception {
         loginAs(Users.TYPE.Requester_Admin);
         goToRequests();
-        populateRequest();
+        populateRequest("Product", productName);
         attachDocuments("Product Test", "Certification Testing Program");
         fillAttachedForms();
         setDueDate();
-        setComments();
+        setComments("this are test comments");
         saveRequest();
         confirmRequest();
-        getToast();
+        getToast("2 requests sent successfully");
         getRequestTaskID();
         //Still needs to validate on requestor side,
         //Have to wait for the task id to appear on requestor list
     }
 
     /**
-     * Todo: change this product to get one with at least 1 retail associated
+     * Preconditions: we have already created a Product and there are reviewers/labs associated to our requestor org.
+     * In this scenario we create 1 request for an Assortment product with at least 1 retail associated (so 2 requests are created).
+     * Non Certification QN Testing Program form is selected.
+     * @throws Exception
      */
-    private void populateRequest() {
+    @Test
+    public void createRequestForAssortmentWithRetailNonCertificationQN() throws Exception {
+        loginAs(Users.TYPE.Requester_Admin);
+        goToRequests();
+        populateRequest("Product", productName);
+        attachDocuments("Product Test", "Non-Certification QN Testing Program");
+        fillAttachedForms();
+        setDueDate();
+        setComments("this are test comments");
+        saveRequest();
+        confirmRequest();
+        getToast("2 requests sent successfully");
+        getRequestTaskID();
+        //Still needs to validate on requestor side,
+        //Have to wait for the task id to appear on requestor list
+    }
+
+    /**
+     * Preconditions: we have already created a Product and there are reviewers/labs associated to our requestor org.
+     * In this scenario we create 1 request for an Assortment product with at least 1 retail associated (so 2 requests are created).
+     * Non Certification Non QN Testing Program form is selected.
+     * @throws Exception
+     */
+    @Test
+    public void createRequestForAssortmentWithRetailNonCertificationNonQN() throws Exception {
+        loginAs(Users.TYPE.Requester_Admin);
+        goToRequests();
+        populateRequest("Product", productName);
+        attachDocuments("Product Test", "Non-Certification Non QN Testing Program");
+        fillAttachedForms();
+        setDueDate();
+        setComments("this are test comments");
+        saveRequest();
+        confirmRequest();
+        getToast("2 requests sent successfully");
+        getRequestTaskID();
+        //Still needs to validate on requestor side,
+        //Have to wait for the task id to appear on requestor list
+    }
+
+    private void populateRequest(String requestType, String tpOrProductName) {
         listRequestsPage.clickNewRequest();
         newRequestPage.switchToRequestFrame();
-        newRequestPage.enterRequestName("This is a test request 123");
-        Assert.assertTrue(newRequestPage.setRequestTypeAndSearch("Product", "QA-41 Jorge Product - Test"));
+        newRequestPage.enterRequestName(productName + " - "+ getTimeStamp());
+        Assert.assertTrue(newRequestPage.setRequestTypeAndSearch(requestType, tpOrProductName));
 //        newRequestPage.enterRequestName(RequestTestData.getRequestName());
 //        Assert.assertTrue(newRequestPage.setRequestTypeAndSearch(RequestTestData.getRequestType(),RequestTestData.getTpOrPrdctName()));
     }
@@ -54,28 +102,28 @@ public class CreateRequestTest extends TestBase{
         selectDocumentsPage.clickSave();
     }
 
-    private void fillAttachedForms() throws InterruptedException {
+    private void fillAttachedForms() {
         getMainWindow();
         for (WebElement form: newRequestPage.selectedDocumentsList) {
             if(form.getText().equals("Certification Testing Program")){
                 clickElement(form, false, true);
                 switchToLastWindow();
                 certificationTestingForm.fillCertificationTestingProgram();
-                driver.close();
+//                driver.close();
                 switchToMainWindow();
                 newRequestPage.switchToRequestFrame();
             } else if (form.getText().equals("Non-Certification Non QN Testing Program")){
                 clickElement(form, false, true);
                 switchToLastWindow();
                 nonCertificationTestingForm.fillNonCertNonQNCertification();
-                driver.close();
+//                driver.close();
                 switchToMainWindow();
                 newRequestPage.switchToRequestFrame();
             } else if (form.getText().equals("Non-Certification QN Testing Program")){
                 clickElement(form, false, true);
                 switchToLastWindow();
                 nonCertificationTestingForm.fillNonCertQNCertification();
-                driver.close();
+//                driver.close();
                 switchToMainWindow();
                 newRequestPage.switchToRequestFrame();
             }
@@ -86,8 +134,8 @@ public class CreateRequestTest extends TestBase{
         newRequestPage.setDueDateNextMonth();
     }
 
-    private void setComments() {
-        newRequestPage.setTxtRequestComments("this are test comments");
+    private void setComments(String comments) {
+        newRequestPage.setTxtRequestComments(comments);
 //        newRequestPage.setTxtRequestComments(RequestTestData.getComment());
     }
 
@@ -95,18 +143,18 @@ public class CreateRequestTest extends TestBase{
         newRequestPage.clickSendBtn();
     }
 
-    private void confirmRequest(){ //this can be improved to be faster by looking at the ui and determining what screen is displayed.
+    private void confirmRequest(){
         Assert.assertTrue(newRequestPage.confirmSelectedItems());
-        try {
+        if(newRequestPage.validateModal()) {
             newRequestPage.clickYes();
-        } catch (Exception e) {
+        } else {
             newRequestPage.clickYesExisting();
         }
 
     }
 
-    public void getToast() {
-        Assert.assertTrue(newRequestPage.getToast().equals("1 request sent successfully"));
+    public void getToast(String toast) {
+        Assert.assertTrue(newRequestPage.getToast().equals(toast));
     }
 
     private void getRequestTaskID() {

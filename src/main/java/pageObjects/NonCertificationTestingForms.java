@@ -218,9 +218,9 @@ public class NonCertificationTestingForms extends BasePage{
         clickAddButton();
 //        setDocumentCategory("Test Plan Attachment");
 //        uploadFile();
-        sleepSeconds(5);
+        sleepSeconds(2);
         clickSaveButton();
-        sleepSeconds(5);
+        sleepSeconds(2);
     }
 
     public void fillNonCertQNCertification(){
@@ -236,8 +236,8 @@ public class NonCertificationTestingForms extends BasePage{
         clickAddButton();
 //        setDocumentCategory("Test Plan Attachment");
 //        uploadFile();
-        sleepSeconds(5);
+        sleepSeconds(2);
         clickSaveButton();
-        sleepSeconds(5);
+        sleepSeconds(2);
     }
 }

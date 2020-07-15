@@ -61,6 +61,7 @@ public class SelectDocumentsPage extends BasePage {
     }
 
     public void selectDocumentForm(String document){
+        sleepSeconds(2);
         waitUntilDisplayed(documentList.get(0));
         clickFirstMatchingTextJS(documentList, document);
     }

@@ -196,8 +196,9 @@ public class CertificationTestingForm extends BasePage {
         clickAddButton();
         setTestCategory("CA");
         clickAddButton();
+        sleepSeconds(2);
         clickSaveButton();
-        sleepSeconds(5);
+        sleepSeconds(2);
     }
 
 }
