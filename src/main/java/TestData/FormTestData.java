@@ -5,7 +5,6 @@ import com.codoid.products.fillo.Connection;
 import com.codoid.products.fillo.Fillo;
 import com.codoid.products.fillo.Recordset;
 import Utils.Log;
-import org.openqa.selenium.WebDriver;
 import pageObjects.BasePage;
 
 import java.io.File;
@@ -112,7 +111,7 @@ public class FormTestData extends BasePage {
             while (recordset.next()) {
                 //Get Form Data from Excel> "Form" sheet and set into object
                 formTestData.setTestId(recordset.getField("TestID").trim());
-                formTestData.setContainerTemplateName(recordset.getField("ContainerTemplateName").trim() + " " + GetTimeStamp());
+                formTestData.setContainerTemplateName(recordset.getField("ContainerTemplateName").trim() + " " + getTimeStamp());
                 formTestData.setType(recordset.getField("Type").trim());
             }
             //Close recordset for Form sheet

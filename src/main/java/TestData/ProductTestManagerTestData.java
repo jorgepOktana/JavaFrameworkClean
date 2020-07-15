@@ -5,7 +5,6 @@ import com.codoid.products.exception.FilloException;
 import com.codoid.products.fillo.Connection;
 import com.codoid.products.fillo.Fillo;
 import com.codoid.products.fillo.Recordset;
-import org.openqa.selenium.WebDriver;
 import pageObjects.BasePage;
 
 import java.io.File;
@@ -281,7 +280,7 @@ public class ProductTestManagerTestData extends BasePage {
 
             //***********************Get TestProgram Data******************************************************************
             while (recordset.next()) {
-                productTestManagerTestData.setProductTestManagerName(recordset.getField("ProductTestManagerName") + " " + GetTimeStamp());
+                productTestManagerTestData.setProductTestManagerName(recordset.getField("ProductTestManagerName") + " " + getTimeStamp());
                 productTestManagerTestData.setCerfificateName(recordset.getField("CerfificateName"));
                 productTestManagerTestData.setAllowBulkAction(recordset.getField("AllowBulkAction"));
                 productTestManagerTestData.setValidationPeriod(recordset.getField("ValidationPeriod"));
@@ -307,9 +306,9 @@ public class ProductTestManagerTestData extends BasePage {
                 while (recordset.next()) {
                     CustomCerificate customCerificate = new CustomCerificate();
                     customCerificate.setTestId(testId);
-                    customCerificate.setCertificateName(recordset.getField("CertificateName")+ " "+GetTimeStamp());
+                    customCerificate.setCertificateName(recordset.getField("CertificateName")+ " "+ getTimeStamp());
                     customCerificate.setTemplatePage(recordset.getField("TemplatePage"));
-                    customCerificate.setCertificateTitle(recordset.getField("CertificateTitle")+ " "+GetTimeStamp());
+                    customCerificate.setCertificateTitle(recordset.getField("CertificateTitle")+ " "+ getTimeStamp());
                     customCerificate.setContactName(recordset.getField("ContactName"));
                     customCerificate.setContactPhone(recordset.getField("ContactPhone"));
                     customCerificate.setContactEmail(recordset.getField("ContactEmail"));

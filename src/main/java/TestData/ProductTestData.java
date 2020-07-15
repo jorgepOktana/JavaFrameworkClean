@@ -196,7 +196,7 @@ public class ProductTestData extends BasePage {
             this.setUniversalID(rs.getField("UniversalID"));
 
             // ProductName
-            this.setProductName(rs.getField("ProductName") + " " + GetTimeStamp());
+            this.setProductName(rs.getField("ProductName") + " " + getTimeStamp());
 
             // ProductIdType
             this.setProductIdType(rs.getField("ProductIdType"));

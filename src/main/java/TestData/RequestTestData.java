@@ -1,7 +1,6 @@
 package TestData;
 
 import com.codoid.products.fillo.Recordset;
-import org.openqa.selenium.WebDriver;
 import pageObjects.BasePage;
 
 import java.util.Date;
@@ -107,7 +106,7 @@ public class RequestTestData extends BasePage {
         Date d = new Date(System.currentTimeMillis());
         while (rs.next()) {
             //Request name
-            setRequestName(rs.getField("Request name") + " " + GetTimeStamp());
+            setRequestName(rs.getField("Request name") + " " + getTimeStamp());
 
             //Request Type
             setRequestType(rs.getField("Request Type"));

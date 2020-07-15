@@ -755,7 +755,7 @@ public class Utils {
         }
     }//End of function
 
-    public static String GetTimeStamp() {
+    public static String getTimeStamp() {
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd-HHmmss").format(new Date());
         return timeStamp;
     }

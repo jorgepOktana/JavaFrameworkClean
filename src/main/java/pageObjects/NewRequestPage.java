@@ -1,7 +1,6 @@
 package pageObjects;
 
 import Utils.Log;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -11,7 +10,7 @@ public class NewRequestPage extends BasePage {
 
     /**
      * This NewRequestPage seems to be inside of an iframe so before acccesing the
-     * elements we probably need to move to the iframe (iframe is on BasePage)
+     * elements we need to move to the iframe (iframe is on BasePage)
      */
 
     public NewRequestPage() {
@@ -107,6 +106,9 @@ public class NewRequestPage extends BasePage {
 
     @FindBy(xpath = "//slds-toast//h2")
     public WebElement requestToast;
+
+    @FindBy(xpath = "(//p[@class='slds-p-around--medium ng-binding'])[1]")
+    public WebElement confirmationTitle;
 
     public boolean isCurrentPage() {
         return pageName.getText().equalsIgnoreCase("Create New Request");
@@ -240,15 +242,23 @@ public class NewRequestPage extends BasePage {
         clickButton(btnYesConfirmationExisting);
     }
 
-    public void switchToDefault() {
-        SwitchToDefaultContent();
-    }
-
     public String getToast() {
 //        sleepSeconds(1);
         waitUntilDisplayed(requestToast);
         String toast = requestToast.getText();
         Log.info(toast);
         return toast;
+    }
+
+    /**
+     * This validates if modal confirmation displayed when creating a request is for a new request (true)
+     * or if the modal displayed is indicating there are request already (false)
+     * @return
+     */
+    public boolean validateModal() {
+        if(isElementPresent("xpath", "(//p[@class='slds-p-around--medium ng-binding'])[1]")){
+            return true;
+        }
+        return false;
     }
 }
