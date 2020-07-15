@@ -122,6 +122,10 @@ public class NewRequestPage extends BasePage {
         currentRequestName = requestName;
     }
 
+    public String getCurrentRequestName(){
+        return currentRequestName;
+    }
+
     public void appendToRequest(String append){
         clickFirstMatchingText(appendCheckbox, append);
     }
