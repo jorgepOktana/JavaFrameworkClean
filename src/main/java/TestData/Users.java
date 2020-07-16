@@ -1,6 +1,5 @@
 package TestData;
 
-import org.openqa.selenium.WebDriver;
 import pageObjects.BasePage;
 
 import java.util.HashMap;
@@ -31,7 +30,7 @@ public class Users extends BasePage {
     static {
         try {
             //Get data from excel
-            GetUserData();
+            getUserData();
             //Set data for each user
             Requester_Admin = adminUsersTestDataMap.get("Requester");
             Responder_Admin = adminUsersTestDataMap.get("Responder");

@@ -24,7 +24,8 @@ public class TestBase extends Utils {
     NonCertificationTestingForms nonCertificationTestingForm;
     RequestPage requestPage;
     IcixProductsPage productPage;
-    IcixTaskPage taskPage;
+    IcixTasksPage taskPage;
+    APITests apiTests;
 
     String currentTaskID = null;
 
@@ -39,7 +40,8 @@ public class TestBase extends Utils {
         nonCertificationTestingForm = new NonCertificationTestingForms();
         requestPage = new RequestPage();
         productPage = new IcixProductsPage();
-        taskPage = new IcixTaskPage();
+        taskPage = new IcixTasksPage();
+        apiTests = new APITests();
     }
 
     public void loginAs(Users.TYPE user) throws Exception {

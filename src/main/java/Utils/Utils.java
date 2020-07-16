@@ -676,7 +676,7 @@ public class Utils {
         waitForPageLoad();
     }
 
-    public static String GetUserData(String key) {
+    public static String getUserData(String key) {
         Properties prop = new Properties();
         InputStream input = null;
         String projectDir = System.getProperty("user.dir") + "/src/test/resources/";
@@ -712,7 +712,7 @@ public class Utils {
      * @throws Exception
      */
 
-    public synchronized static void GetUserData() throws Exception {
+    public synchronized static void getUserData() throws Exception {
         try {
 //			String FS = File.separator;
 //			String testDataFilePath = "src" + FS + "test" + FS + "resources" + FS + "TestData" + FS + "UserData.xls";
