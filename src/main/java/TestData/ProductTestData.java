@@ -10,7 +10,7 @@ public class ProductTestData extends BasePage {
     // public static String ProductName ="Product Testing"+date;
     public static String id = "UPC";
     // public static String ProductGroupTag="DigitalW"; // New Added
-    public static String ProductGroupTag = GetUserData("ProductGroupTag");
+    public static String ProductGroupTag = getUserData("ProductGroupTag");
     static Date d = new Date(System.currentTimeMillis());
     public static String prodGrpName = "Automation Product Group " + d;
     public static String prodEditGrpName = "Automation Product Editing Group " + d; // New Added

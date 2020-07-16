@@ -22,6 +22,7 @@ public class CreateRequestTest extends TestBase{
      */
     @Test
     public void createRequestForAssortmentWithRetailCertification() throws Exception {
+        apiTests.createAssortment();
         loginAs(Users.TYPE.Requester_Admin);
         goToRequests();
         populateRequest("Product", productName);
@@ -107,6 +108,7 @@ public class CreateRequestTest extends TestBase{
         for (WebElement form: newRequestPage.selectedDocumentsList) {
             if(form.getText().equals("Certification Testing Program")){
                 clickElement(form, false, true);
+                //add try catch
                 switchToLastWindow();
                 certificationTestingForm.fillCertificationTestingProgram();
 //                driver.close();
